@@ -3,7 +3,7 @@ import { Header } from '../../components';
 
 const ExplorarBebidasIngredientes = () => (
   // <>
-  <Header title="Explorar Bebidas" displaySearchBtn={ false } />
+  <Header title="Explorar Ingredientes" displaySearchBtn={ false } />
   // </>
 );
 

@@ -5,4 +5,4 @@ export const saveLocalStorage = (key, payload) => {
 };
 
 export const getLocalStorage = (key, payload) => JSON
-  .parse(localStorage.getItem(key, JSON.stringify(payload)));
+  .parse(localStorage.getItem(key, JSON.parse(payload)));

@@ -38,7 +38,7 @@ const Routes = () => (
     />
     <Route
       exact
-      path="/comidas/area"
+      path="/explorar/comidas/area"
       component={ ComidasArea }
     />
     <Route
@@ -98,7 +98,7 @@ const Routes = () => (
     />
     <Route
       exact
-      path="/Profile"
+      path="/perfil"
       component={ Profile }
     />
   </Switch>

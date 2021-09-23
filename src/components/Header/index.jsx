@@ -10,7 +10,7 @@ const Header = (props) => {
 
   const history = useHistory();
   const redirectToProfile = () => {
-    history.push('/profile');
+    history.push('/perfil');
   };
 
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -18,20 +18,19 @@ const Header = (props) => {
   const searchBarButton = () => (
     <button
       type="button"
-      data-testid="search-top-btn"
       onClick={ () => setShowSearchBar(!showSearchBar) }
     >
-      <img src={ searchIcon } alt="search-icon" />
+      <img data-testid="search-top-btn" src={ searchIcon } alt="search-icon" />
     </button>
   );
 
-  const searchBar = () => <Input />;
+  const searchBar = () => <Input name="search" />;
   // VOLTAR DAQUI
 
   return (
     <>
-      <button type="button" data-testid="profile-top-btn" onClick={ redirectToProfile }>
-        <img src={ profileIcon } alt="profile-icon" />
+      <button type="button" onClick={ redirectToProfile }>
+        <img data-testid="profile-top-btn" src={ profileIcon } alt="profile-icon" />
       </button>
       <h1 data-testid="page-title">{title}</h1>
       { displaySearchBtn && searchBarButton() }
