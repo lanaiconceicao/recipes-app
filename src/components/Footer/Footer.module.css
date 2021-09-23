@@ -1,3 +1,58 @@
-.button {
-  width: 1px;
+.footer {
+  background-color: #C4C4C4;
+  height: 58px;
+  left: 0;
+  position: absolute;
+  top: 582;
+  width: 360px;
 }
+
+.drink-icon {
+  height: 40px;
+  left: 16px;
+  position: absolute;
+  top: 591px;
+  width: 40px;
+}
+
+.explore-icon {
+  height: 40px;
+  left: 160px;
+  position: absolute;
+  top: 593px;
+  width: 40px;
+}
+
+.food-icon {
+  height: 40px;
+  left: 302px;
+  position: absolute;
+  top: 593px;
+  width: 40px;
+}
+
+/*
+Com Display flex:
+
+.footer {
+  background-color: #C4C4C4;
+  display: flex;   
+  width: 360px;
+  justify-content: space-around;
+}
+
+.drink-icon {
+  display: flex; 
+  width: 40px;
+}
+
+.explore-icon {
+  display: flex;  
+  width: 40px;
+}
+
+.food-icon {
+  display: flex;
+  width: 40px;
+}
+*/
