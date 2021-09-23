@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useReducer } from 'react';
 import Context from './Context';
+import { saveLocalStorage } from '../services/localStorage';
 
 const Provider = ({ children }) => {
   const initialState = {
@@ -26,7 +27,7 @@ const Provider = ({ children }) => {
         ...state,
         cocktailsToken: payload,
       };
-    case 'get-user-email':
+    case 'set-user-email':
       return {
         ...state,
         user: {
@@ -46,8 +47,16 @@ const Provider = ({ children }) => {
 
   const [updatedState, dispatch] = useReducer(reducerRecipes, initialState);
 
+  const handleSubmitLogin = (email) => {
+    saveLocalStorage('mealsToken', 1);
+    saveLocalStorage('cocktailsToken', 1);
+    saveLocalStorage('user', { email });
+    dispatch({ type: 'set-user-email', payload: email });
+  };
+
   const value = {
     updatedState,
+    handleSubmitLogin,
   };
 
   return (

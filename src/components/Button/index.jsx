@@ -1,15 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Button = (props) => {
-  const { type, text, handleClick } = props;
-  return (
-    <button
-      type={type}
-      onClick={handleClick}
-    >
-      {text}
-    </button>
-  );
+const Button = ({ children, handleClick }) => (
+  <button
+    type="button"
+    onClick={ handleClick }
+  >
+    {children}
+  </button>
+);
+
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default Button;

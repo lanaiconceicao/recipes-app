@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
-import { Input } from '..';
+import Input from '../Input';
 
 const Header = (props) => {
   const { title, displaySearchBtn } = props;
@@ -25,10 +25,8 @@ const Header = (props) => {
     </button>
   );
 
-  const searchBar = () => {
-    return <Input />;
-    // VOLTAR DAQUI
-  };
+  const searchBar = () => <Input />;
+  // VOLTAR DAQUI
 
   return (
     <>
