@@ -1,9 +1,10 @@
 import React from 'react';
+import { Header } from '../../components';
 
 const Comidas = () => (
-  <div>
-    Comidas
-  </div>
+  // <>
+  <Header title="Comidas" displaySearchBtn />
+  // </>
 );
 
 export default Comidas;

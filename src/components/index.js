@@ -5,7 +5,7 @@ export { default as FilterRecipes } from './FilterRecipes';
 export { default as Footer } from './Footer';
 export { default as Header } from './Header';
 export { default as HeaderRecipes } from './HeaderRecipes';
-export { default as IngredientsList } from './IngredientsList';
+export { default as IngredientList } from './IngredientList';
 export { default as Input } from './Input';
 export { default as Instruction } from './Instruction';
 export { default as Liked } from './Liked';
