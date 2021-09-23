@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../Button';
-import drinkIcon from '../images/drinkIcon.svg';
-import exploreIcon from '../images/exploreIcon.svg';
-import mealIcon from '../images/mealIcon.svg';
+import drinkIcon from '../../images/drinkIcon.svg';
+import exploreIcon from '../../images/exploreIcon.svg';
+import mealIcon from '../../images/mealIcon.svg';
 
 const Footer = () => (
   <footer data-testid="footer" className="footer">
@@ -27,8 +27,10 @@ const Footer = () => (
       data-testid="food-bottom-btn"
       className="food-icon"
     >
-      <img src={ mealIcon } alt="food icon" /> 
+      <img src={ mealIcon } alt="food icon" />
       <Link to="/comidas" />
     </Button>
   </footer>
 );
+
+export default Footer;
