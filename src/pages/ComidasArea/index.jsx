@@ -1,10 +1,10 @@
 import React from 'react';
-import { Header } from '../../components';
+import { Footer, Header } from '../../components';
 
 const ComidasArea = () => (
   <>
     <Header title="Explorar Origem" displaySearchBtn />
-    Seila
+    <Footer />
   </>
 );
 

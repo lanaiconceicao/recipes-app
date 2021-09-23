@@ -1,10 +1,11 @@
 import React from 'react';
-import { Header } from '../../components';
+import { Header, Footer } from '../../components';
 
 const Profile = () => (
-  // <>
-  <Header title="Perfil" displaySearchBtn={ false } />
-  // </>
+  <>
+    <Header title="Perfil" displaySearchBtn={ false } />
+    <Footer />
+  </>
 );
 
 export default Profile;

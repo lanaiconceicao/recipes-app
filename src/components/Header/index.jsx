@@ -24,7 +24,24 @@ const Header = (props) => {
     </button>
   );
 
-  const searchBar = () => <Input name="search" />;
+  const searchBar = () => (
+    <section>
+      <Input name="search" />
+      <label htmlFor="byIngredient">
+        Ingrediente
+        <input id="byIngredient" type="radio" data-testid="ingredient-search-radio" />
+      </label>
+      <label htmlFor="byName">
+        Nome
+        <input id="byName" type="radio" data-testid="first-letter-search-radio" />
+      </label>
+      <label htmlFor="byFirstLetter">
+        Primeira letra
+        <input id="byFirstLetter" type="radio" data-testid="name-search-radio" />
+      </label>
+      <button data-testid="exec-search-btn" type="button">Buscar</button>
+    </section>
+  );
   // VOLTAR DAQUI
 
   return (

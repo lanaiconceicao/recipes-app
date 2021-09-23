@@ -4,31 +4,32 @@ import Button from '../Button';
 import drinkIcon from '../../images/drinkIcon.svg';
 import exploreIcon from '../../images/exploreIcon.svg';
 import mealIcon from '../../images/mealIcon.svg';
+import style from './Footer.module.css';
 
 const Footer = () => (
-  <footer data-testid="footer" className="footer">
+  <footer data-testid="footer" className={ style.footer }>
     <Button
-      data-testid="drinks-bottom-btn"
-      className="drink-icon"
+      className={ style.drinkIcon }
     >
-      <img scr={ drinkIcon } alt="drink icon" />
-      <Link to="/bebidas" />
+      <Link to="/bebidas">
+        <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drink icon" />
+      </Link>
     </Button>
 
     <Button
-      data-testid="explore-bottom-btn"
-      className="explore-icon"
+      className={ style.exploreIcon }
     >
-      <img scr={ exploreIcon } alt="explore icon" />
-      <Link to="/explore" />
+      <Link to="/explorar">
+        <img data-testid="explore-bottom-btn" src={ exploreIcon } alt="explore icon" />
+      </Link>
     </Button>
 
     <Button
-      data-testid="food-bottom-btn"
-      className="food-icon"
+      className={ style.foodIcon }
     >
-      <img src={ mealIcon } alt="food icon" />
-      <Link to="/comidas" />
+      <Link to="/comidas">
+        <img data-testid="food-bottom-btn" src={ mealIcon } alt="food icon" />
+      </Link>
     </Button>
   </footer>
 );

@@ -1,53 +1,19 @@
 .footer {
-  background-color: #C4C4C4;
-  height: 58px;
-  left: 0;
-  position: absolute;
-  top: 582;
-  width: 360px;
-}
-
-.drink-icon {
-  height: 40px;
-  left: 16px;
-  position: absolute;
-  top: 591px;
-  width: 40px;
-}
-
-.explore-icon {
-  height: 40px;
-  left: 160px;
-  position: absolute;
-  top: 593px;
-  width: 40px;
-}
-
-.food-icon {
-  height: 40px;
-  left: 302px;
-  position: absolute;
-  top: 593px;
-  width: 40px;
-}
-
-/*
-Com Display flex:
-
-.footer {
-  background-color: #C4C4C4;
-  display: flex;   
-  width: 360px;
+  background-color: #c4c4c4;
+  bottom: 0;
+  display: flex;
   justify-content: space-around;
+  position: fixed;
+  width: 100%;
 }
 
 .drink-icon {
-  display: flex; 
+  display: flex;
   width: 40px;
 }
 
 .explore-icon {
-  display: flex;  
+  display: flex;
   width: 40px;
 }
 
@@ -55,4 +21,3 @@ Com Display flex:
   display: flex;
   width: 40px;
 }
-*/

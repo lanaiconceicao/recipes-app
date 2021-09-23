@@ -1,10 +1,11 @@
 import React from 'react';
-import { Header } from '../../components';
+import { Footer, Header } from '../../components';
 
 const ExplorarBebidasIngredientes = () => (
-  // <>
-  <Header title="Explorar Ingredientes" displaySearchBtn={ false } />
-  // </>
+  <>
+    <Header title="Explorar Ingredientes" displaySearchBtn={ false } />
+    <Footer />
+  </>
 );
 
 export default ExplorarBebidasIngredientes;
