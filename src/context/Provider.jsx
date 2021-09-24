@@ -33,10 +33,10 @@ const Provider = ({ children }) => {
         ...state,
         recipes: payload,
       };
-    case 'add-done-recipe':
+    case 'recipe-detail':
       return {
         ...state,
-
+        recipe: payload,
       };
 
     default:
@@ -90,10 +90,22 @@ const Provider = ({ children }) => {
     }
   };
 
+  const handleSearchById = async ({ location, id }) => {
+    const data = await fetchAPI(
+      location.pathname.includes('comidas')
+        ? 'fetchMealById'
+        : 'fetchCocktailById',
+      id,
+    );
+    return data;
+    // dispatch({ type: 'recipe-detail', payload: data });
+  };
+
   const value = {
     appState,
     handleSubmitLogin,
     handleSearch,
+    handleSearchById,
   };
 
   return (
