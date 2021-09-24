@@ -21,9 +21,12 @@ const fetchAPI = async (chooseUrl, query) => {
   try {
     const response = await fetch(verifyUrl[chooseUrl]);
     const data = await response.json();
-    return data;
+    // tratando null para evitar de quebrar verificacao com length
+    if (!Object.values(data)[0]) return [];
+    // Retornar somente primeira chave sendo `meals` ou `drinks`
+    return Object.values(data)[0];
   } catch (error) {
-    global.alert('Houve algum erro');
+    console.error(error);
   }
 };
 

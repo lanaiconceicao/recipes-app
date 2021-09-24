@@ -1,23 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import style from './Input.module.css';
 
 const Input = ({
   dataTestId,
-  handleChange,
+  onChange,
   label,
   name,
   type,
   value,
 }) => (
-  <label htmlFor={ name }>
+  <label className={ style.label } htmlFor={ name }>
     { label }
     <input
-      value={ value }
-      type={ type }
-      name={ name }
+      className={ style.input }
       data-testid={ dataTestId }
-      onChange={ handleChange }
       id={ name }
+      name={ name }
+      onChange={ onChange }
+      placeholder={ label }
+      type={ type }
+      value={ value }
     />
   </label>
 
@@ -25,18 +28,18 @@ const Input = ({
 
 Input.defaultProps = {
   dataTestId: '',
-  handleChange: null,
   name: '',
+  onChange: null,
   type: 'text',
 };
 
-const { func, string } = propTypes;
+const { func, string } = PropTypes;
 
 Input.propTypes = {
   dataTestId: string,
-  handleChange: func,
-  name: string,
   label: string.isRequired,
+  name: string,
+  onChange: func,
   type: string,
   value: string.isRequired,
 };

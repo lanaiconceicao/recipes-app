@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import Input from '../Input';
+import Button from '../Button';
 import Context from '../../context/Context';
 
 const Header = (props) => {
@@ -32,60 +33,55 @@ const Header = (props) => {
 
   const searchBar = () => (
     <section>
-      {/* <Input name="search" /> */}
-      <label htmlFor="search">
-        Search
-        <input
-          onChange={ ({ target: { value } }) => setBySearch(value) }
-          id="search"
-          type="text"
-          data-testid="search-input"
-        />
-      </label>
+      <Input
+        dataTestId="search-input"
+        name="search"
+        onChange={ ({ target: { value } }) => setBySearch(value) }
+        value={ search }
+      />
       <section onChange={ ({ target: { value } }) => setBySearchQuery(value) }>
-        <input
+        <Input
           value="byIngredient"
-          id="byIngredient"
           name="searchQuery"
           type="radio"
-          data-testid="ingredient-search-radio"
+          dataTestId="ingredient-search-radio"
+          label="Buscar por ingrediente"
         />
-        <input
+        <Input
           value="byName"
-          id="byName"
           type="radio"
           name="searchQuery"
-          data-testid="name-search-radio"
+          dataTestId="name-search-radio"
+          label="Buscar pelo nome"
         />
-        <input
+        <Input
           value="byFirstLetter"
-          id="byFirstLetter"
           type="radio"
           name="searchQuery"
-          data-testid="first-letter-search-radio"
+          dataTestId="first-letter-search-radio"
+          label="Buscar por letra"
         />
       </section>
 
-      <button
+      <Button
         onClick={ getInfoFromSearch }
-        data-testid="exec-search-btn"
-        type="button"
+        dataTestId="exec-search-btn"
       >
         Buscar
-      </button>
+      </Button>
     </section>
   );
   // VOLTAR DAQUI
 
   return (
     <>
-      <button type="button" onClick={ redirectToProfile }>
+      <Button onClick={ redirectToProfile }>
         <img
           data-testid="profile-top-btn"
           src={ profileIcon }
           alt="profile-icon"
         />
-      </button>
+      </Button>
       <h1 data-testid="page-title">{title}</h1>
       {displaySearchBtn && searchBarButton()}
       {showSearchBar && searchBar()}

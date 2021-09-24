@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
 import { validateEmail, validatePassword } from './helpers';
 import Context from '../../context/Context';
+import { Button, Input } from '../../components';
+import style from './Login.module.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [btnIsDisabled, setBtnDisabled] = useState(true);
   const { handleSubmitLogin } = useContext(Context);
-  const history = useHistory();
 
   const handleChange = ({ target: { name, value } }) => (
     name === 'email'
@@ -21,37 +21,33 @@ const Login = () => {
     else setBtnDisabled(true);
   }, [email, password]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleSubmitLogin(email);
-    history.push('/comidas');
-  };
   return (
-    <main>
-      <form onSubmit={ handleSubmit }>
-        <input
+    <section className={ style.section }>
+      <form className={ style.form } onSubmit={ (e) => handleSubmitLogin(e, email) }>
+        <Input
           onChange={ handleChange }
           name="email"
+          label="Insira o seu email"
           value={ email }
-          type="text"
-          data-testid="email-input"
+          dataTestId="email-input"
         />
-        <input
+        <Input
           onChange={ handleChange }
           name="password"
+          label="Insira sua senha"
           value={ password }
           type="password"
-          data-testid="password-input"
+          dataTestId="password-input"
         />
-        <button
+        <Button
           disabled={ btnIsDisabled }
-          type="submit"
-          data-testid="login-submit-btn"
+          dataTestId="login-submit-btn"
+          submitBtn
         >
           Login
-        </button>
+        </Button>
       </form>
-    </main>
+    </section>
   );
 };
 

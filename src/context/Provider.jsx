@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { useReducer } from 'react';
+import { useHistory } from 'react-router';
 import Context from './Context';
 import { saveLocalStorage } from '../services/localStorage';
 import fetchAPI from '../services/fetchAPI';
 
 const Provider = ({ children }) => {
+  const history = useHistory();
   const initialState = {
     mealsToken: '',
     cocktailsToken: '',
     user: {
       email: '',
     },
+    recipes: [],
     doneRecipes: [],
     favoriteRecipes: [],
     inProgressRecipes: [],
@@ -41,13 +44,15 @@ const Provider = ({ children }) => {
     }
   };
 
-  const [updatedState, dispatch] = useReducer(reducerRecipes, initialState);
+  const [appState, dispatch] = useReducer(reducerRecipes, initialState);
 
-  const handleSubmitLogin = (email) => {
+  const handleSubmitLogin = (e, email) => {
+    e.preventDefault();
     saveLocalStorage('mealsToken', 1);
     saveLocalStorage('cocktailsToken', 1);
     saveLocalStorage('user', { email });
     dispatch({ type: 'set-user-email', payload: email });
+    history.push('/comidas');
   };
 
   const handleSearch = async ({ query, typeSearch, location }) => {
@@ -69,11 +74,24 @@ const Provider = ({ children }) => {
         : verifySearchCocktail[typeSearch],
       query,
     );
+
     dispatch({ type: 'add-recipes', payload: data });
+
+    if (data.length === 0) {
+      global
+        .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+
+    if (location.pathname.includes('comidas') && data.length === 1) {
+      history.push(`/comidas/${data[0].idMeal}`);
+    }
+    if (location.pathname.includes('bebidas') && data.length === 1) {
+      history.push(`/bebidas/${data[0].idDrink}`);
+    }
   };
 
   const value = {
-    updatedState,
+    appState,
     handleSubmitLogin,
     handleSearch,
   };

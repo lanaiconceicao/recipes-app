@@ -1,12 +1,50 @@
-import React from 'react';
-import { Header, Footer } from '../../components';
+import React, { useContext, useState } from 'react';
+import ReactPaginate from 'react-paginate';
+import { Card, Footer, Header } from '../../components';
 import style from './Comidas.module.css';
+import Context from '../../context/Context';
 
-const Comidas = () => (
-  <main className={ style.main }>
-    <Header title="Comidas" displaySearchBtn />
-    <Footer />
-  </main>
-);
+const Comidas = () => {
+  const { appState: { recipes } } = useContext(Context);
+  const [currentPage, setCurrentPage] = useState(0);
+  const handlePageClick = ({ selected: selectedPage }) => {
+    setCurrentPage(selectedPage);
+  };
+
+  const renderRecipes = () => {
+    const PER_PAGE = 12;
+    const offset = currentPage * PER_PAGE;
+    const pageCount = Math.ceil(recipes.length / PER_PAGE);
+    return (
+      <>
+        {recipes
+          .slice(offset, offset + PER_PAGE)
+          .map((recipe, i) => (
+            <Card
+              key={ i }
+              index={ i }
+              name={ recipe.strMeal }
+              img={ recipe.strMealThumb }
+            />
+          ))}
+        <ReactPaginate
+          previousLabel="Anterior"
+          nextLabel="Proxima"
+          breakLabel="..."
+          pageCount={ pageCount }
+          onPageChange={ handlePageClick }
+        />
+      </>
+    );
+  };
+
+  return (
+    <main className={ style.main }>
+      <Header title="Comidas" displaySearchBtn />
+      {recipes && renderRecipes()}
+      <Footer />
+    </main>
+  );
+};
 
 export default Comidas;
