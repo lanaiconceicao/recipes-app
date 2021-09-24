@@ -17,16 +17,6 @@ const Provider = ({ children }) => {
 
   const reducerRecipes = (state, { type, payload }) => {
     switch (type) {
-    case 'get-meals-token':
-      return {
-        ...state,
-        mealsToken: payload,
-      };
-    case 'get-cocktails-token':
-      return {
-        ...state,
-        cocktailsToken: payload,
-      };
     case 'set-user-email':
       return {
         ...state,
@@ -34,12 +24,17 @@ const Provider = ({ children }) => {
           email: payload,
         },
       };
+    case 'add-recipes':
+      return {
+        ...state,
+        recipes: payload,
+      };
     case 'add-done-recipe':
       return {
         ...state,
-        // doneRecipes: ,
+
       };
-    // adicionar outros cases
+
     default:
       return state;
     }
@@ -54,9 +49,32 @@ const Provider = ({ children }) => {
     dispatch({ type: 'set-user-email', payload: email });
   };
 
+  const handleSearch = async ({ query, typeSearch, location }) => {
+    const verifySearchMeal = {
+      byIngredient: 'fetchMealByIngredient',
+      byName: 'fetchMealByName',
+      byFirstLetter: 'fetchMealByFirstLetter',
+    };
+
+    const verifySearchCocktail = {
+      byIngredient: 'fetchCocktailByIngredient',
+      byName: 'fetchCocktailByName',
+      byFirstLetter: 'fetchCocktailByFirstLetter',
+    };
+
+    const data = await fetchAPI(
+      location.pathname.includes('comidas')
+        ? verifySearchMeal[typeSearch]
+        : verifySearchCocktail[typeSearch],
+      query,
+    );
+    dispatch({ type: 'add-recipes', payload: data });
+  };
+
   const value = {
     updatedState,
     handleSubmitLogin,
+    handleSearch,
   };
 
   return (

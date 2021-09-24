@@ -13,6 +13,10 @@ const Header = (props) => {
     history.push('/perfil');
   };
 
+  const getInfoFromSearch = () => {
+    handleSearch({ query: search, typeSearch: searchQuery, location });
+  };
+
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const searchBarButton = () => (
