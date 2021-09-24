@@ -1,11 +1,13 @@
 import React from 'react';
-import './App.css';
+import style from './App.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from './routes';
 
 function App() {
   return (
-    <Routes />
+    <main className={ style.main }>
+      <Routes />
+    </main>
   );
 }
 

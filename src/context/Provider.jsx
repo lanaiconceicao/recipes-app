@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useReducer } from 'react';
 import Context from './Context';
 import { saveLocalStorage } from '../services/localStorage';
+import fetchAPI from '../services/fetchAPI';
 
 const Provider = ({ children }) => {
   const initialState = {

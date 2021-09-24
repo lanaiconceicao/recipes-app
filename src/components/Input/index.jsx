@@ -1,35 +1,44 @@
 import React from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-function Input(props) {
-  const { handleChange, name, label, value, type } = props;
-  return (
-    <div>
-      <label htmlFor={ name }>
-        { label }
-        <input
-          value={ value }
-          type={ type }
-          name={ name }
-          data-testid={ `${name}-input` }
-          onChange={ handleChange }
-          id={ name }
-        />
-      </label>
-    </div>
-  );
-}
+const Input = ({
+  dataTestId,
+  handleChange,
+  label,
+  name,
+  type,
+  value,
+}) => (
+  <label htmlFor={ name }>
+    { label }
+    <input
+      value={ value }
+      type={ type }
+      name={ name }
+      data-testid={ dataTestId }
+      onChange={ handleChange }
+      id={ name }
+    />
+  </label>
+
+);
 
 Input.defaultProps = {
+  dataTestId: '',
+  handleChange: null,
+  name: '',
   type: 'text',
 };
 
+const { func, string } = propTypes;
+
 Input.propTypes = {
-  handleChange: Proptypes.func,
-  datatestid: Proptypes.string,
-  name: Proptypes.string,
-  label: Proptypes.string,
-  type: Proptypes.string,
-}.isrequired;
+  dataTestId: string,
+  handleChange: func,
+  name: string,
+  label: string.isRequired,
+  type: string,
+  value: string.isRequired,
+};
 
 export default Input;
