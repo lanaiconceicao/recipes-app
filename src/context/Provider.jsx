@@ -13,6 +13,7 @@ const Provider = ({ children }) => {
     user: {
       email: '',
     },
+    recipe: {},
     recipes: [],
     doneRecipes: [],
     favoriteRecipes: [],
@@ -97,8 +98,7 @@ const Provider = ({ children }) => {
         : 'fetchCocktailById',
       id,
     );
-    return data;
-    // dispatch({ type: 'recipe-detail', payload: data });
+    dispatch({ type: 'recipe-detail', payload: data[0] });
   };
 
   const value = {

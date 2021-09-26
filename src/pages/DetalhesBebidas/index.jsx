@@ -6,31 +6,31 @@ import Context from '../../context/Context';
 const DetalhesBebidas = () => {
   const { id } = useParams();
   const location = useLocation();
-  const { handleSearchById } = useContext(Context);
-  const [stateRecipe, setRecipe] = useState({});
+  const { handleSearchById, appState: { recipe } } = useContext(Context);
 
   useEffect(() => {
-    const data = handleSearchById({ location, id });
-    data.then((d) => setRecipe(d[0]));
-  }, [handleSearchById, location, id]);
+    handleSearchById({ location, id });
+  }, [handleSearchById, location, id, recipe]);
+
+  if (Object.keys(recipe).length === 0) return (<div>Carregando...</div>);
 
   const filterIngredients = Object
-    .entries(stateRecipe)
+    .entries(recipe)
     .filter((key) => key[0].includes('strIngredient') && key[1])
     .map((e) => e[1]);
 
   return (
     <article>
       <HeaderRecipes
-        category={ stateRecipe.strCategory }
-        img={ stateRecipe.strDrinkThumb }
-        title={ stateRecipe.strDrink }
+        category={ recipe.strCategory }
+        img={ recipe.strDrinkThumb }
+        title={ recipe.strDrink }
       />
       <IngredientList
         isCheckbox={ false }
         ingredients={ filterIngredients }
       />
-      {JSON.stringify(stateRecipe)}
+      {JSON.stringify(recipe)}
     </article>
   );
 };

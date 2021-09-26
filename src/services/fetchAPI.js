@@ -6,8 +6,7 @@ const fetchAPI = async (chooseUrl, query) => {
 
     fetchMealById: `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${query}`,
 
-    fetchMealByName: `https://www.themealdb.com/api/json/
-    v1/1/search.php?s=${query}`,
+    fetchMealByName: `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`,
 
     fetchCocktailById: `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${query}`,
 
