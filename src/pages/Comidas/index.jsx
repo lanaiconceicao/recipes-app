@@ -74,7 +74,7 @@ const Comidas = () => {
   const renderRecipes = (recipesArr) => {
     const PER_PAGE = 12;
     const offset = currentPage * PER_PAGE;
-    const pageCount = Math.ceil(recipes.length / PER_PAGE);
+    const pageCount = Math.ceil(recipesArr.length / PER_PAGE);
     return (
       <>
         {recipesArr
