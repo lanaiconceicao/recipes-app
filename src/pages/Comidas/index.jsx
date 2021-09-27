@@ -5,12 +5,14 @@ import { Card, Footer, Header, Button } from '../../components';
 import style from './Comidas.module.css';
 import Context from '../../context/Context';
 import fetchCategories from '../../services/fetchCategories';
+import fetchByCategories from '../../services/fetchByCategories';
 
 const Comidas = () => {
   const { appState: { recipes }, handleSearch } = useContext(Context);
   const [currentPage, setCurrentPage] = useState(0);
   const [categories, setCategories] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handlePageClick = ({ selected: selectedPage }) => {
     setCurrentPage(selectedPage);
@@ -23,14 +25,15 @@ const Comidas = () => {
     handleSearch(searchObj);
   }, []);
 
+  const getUrlLocation = () => {
+    if (location.pathname.includes('comida')) {
+      return 'meal';
+    } if (location.pathname.includes('bebida')) {
+      return 'cocktail';
+    }
+  };
+
   useEffect(() => {
-    const getUrlLocation = () => {
-      if (location.pathname.includes('comida')) {
-        return 'meal';
-      } if (location.pathname.includes('bebida')) {
-        return 'cocktail';
-      }
-    };
     const updateCategories = async () => {
       const categoriesBtn = await fetchCategories(getUrlLocation());
       setCategories(categoriesBtn);
@@ -38,15 +41,23 @@ const Comidas = () => {
     updateCategories();
   }, []);
 
+  const updateRecipes = async (globalRecipes) => {
+    await setFilteredRecipes(globalRecipes);
+  };
+
   useEffect(() => {
-    const updateRecipes = async (globalRecipes) => {
-      await setFilteredRecipes(globalRecipes);
-    };
     updateRecipes(recipes);
   }, [recipes]);
 
-  const filterByCategory = (category) => {
-    setFilteredRecipes(recipes.filter((recipe) => recipe.strCategory.includes(category)));
+  const filterByCategory = async (category) => {
+    if (selectedCategory === category) {
+      updateRecipes(recipes);
+      setSelectedCategory('');
+    } else {
+      const APIResponse = await fetchByCategories(getUrlLocation(), category);
+      setFilteredRecipes(APIResponse);
+      setSelectedCategory(category);
+    }
   };
 
   const renderCategories = (categoriesBtn) => categoriesBtn.map((category, i) => (
@@ -74,6 +85,8 @@ const Comidas = () => {
               index={ i }
               name={ recipe.strMeal }
               img={ recipe.strMealThumb }
+              mealOrDrink="comidas"
+              id={ recipe.idMeal }
             />
           ))}
         <ReactPaginate
@@ -92,7 +105,9 @@ const Comidas = () => {
       <Header title="Comidas" displaySearchBtn />
       {categories && renderCategories(categories)}
       <Button
-        onClick={ () => filterByCategory('') }
+        // onClick={ () => filterByCategory('') }
+        dataTestId="All-category-filter"
+        onClick={ () => updateRecipes(recipes) }
       >
         All
       </Button>
