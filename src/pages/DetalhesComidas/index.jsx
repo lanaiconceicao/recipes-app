@@ -1,14 +1,17 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router';
 import ReactPlayer from 'react-player/youtube';
-import { Button, HeaderRecipes, IngredientList, Instruction, Recommendations } from '../../components';
+import {
+  Button, HeaderRecipes, IngredientList,
+  Instruction, Recommendations } from '../../components';
 import Context from '../../context/Context';
 import style from './DetalhesComidas.module.css';
 
 const DetalhesComidas = () => {
   const { id } = useParams();
   const location = useLocation();
-  const { handleSearchById, handleRecommendations, appState: { recipe, recommendations } } = useContext(Context);
+  const { handleSearchById, handleRecommendations,
+    appState: { recipe, recommendations } } = useContext(Context);
 
   useEffect(() => {
     handleSearchById({ location, id });

@@ -1,8 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router';
-import { Button, HeaderRecipes, IngredientList, Instruction, Recommendations } from '../../components';
+import {
+  Button, HeaderRecipes,
+  IngredientList, Instruction,
+  Recommendations } from '../../components';
 import Context from '../../context/Context';
-import style from './DetalhesBebidas.module.css';
+// import style from './DetalhesBebidas.module.css';
 
 const DetalhesBebidas = () => {
   const { id } = useParams();

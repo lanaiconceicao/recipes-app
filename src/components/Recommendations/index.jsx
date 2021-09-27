@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useLocation } from 'react-router';
 import Carousel from 'react-multi-carousel';
@@ -46,6 +47,10 @@ const Recommendations = ({ recommendations }) => {
       </Carousel>
     </div>
   );
+};
+
+Recommendations.propTypes = {
+  recommendations: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default Recommendations;

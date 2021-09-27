@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router';
 import { HeaderRecipes, IngredientList } from '../../components';
 import Context from '../../context/Context';

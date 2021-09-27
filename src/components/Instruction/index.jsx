@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const Instructions = ({ instruction }) => (
@@ -5,5 +6,9 @@ const Instructions = ({ instruction }) => (
     {instruction}
   </div>
 );
+
+Instructions.propTypes = {
+  instruction: PropTypes.string.isRequired,
+};
 
 export default Instructions;

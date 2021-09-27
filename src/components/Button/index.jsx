@@ -5,11 +5,11 @@ import style from './Button.module.css';
 const Button = ({ children, dataTestId, disabled, onClick, submitBtn, styleBtn }) => (
   <button
     className={ style.button }
-    style={ styleBtn }
     data-testid={ dataTestId }
     disabled={ disabled }
     onClick={ onClick }
     type={ submitBtn ? 'submit' : 'button' }
+    style={ styleBtn }
   >
     {children}
   </button>
@@ -20,6 +20,7 @@ Button.defaultProps = {
   disabled: false,
   onClick: null,
   submitBtn: false,
+  styleBtn: null,
 };
 
 const { bool, func, node, string } = PropTypes;
@@ -30,6 +31,7 @@ Button.propTypes = {
   disabled: bool,
   onClick: func,
   submitBtn: bool,
+  styleBtn: Object,
 };
 
 export default Button;

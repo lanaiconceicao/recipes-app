@@ -29,6 +29,7 @@ const IngredientList = ({
 
 IngredientList.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  measures: PropTypes.arrayOf(PropTypes.string).isRequired,
   isCheckbox: PropTypes.bool.isRequired,
 };
 export default IngredientList;
