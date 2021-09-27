@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './Button.module.css';
 
-const Button = ({ children, dataTestId, disabled, onClick, submitBtn }) => (
+const Button = ({ children, dataTestId, disabled, onClick, submitBtn, styleBtn }) => (
   <button
     className={ style.button }
+    style={ styleBtn }
     data-testid={ dataTestId }
     disabled={ disabled }
     onClick={ onClick }

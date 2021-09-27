@@ -18,6 +18,8 @@ const Provider = ({ children }) => {
     doneRecipes: [],
     favoriteRecipes: [],
     inProgressRecipes: [],
+    recommendations: [],
+    isLoading: true,
   };
 
   const reducerRecipes = (state, { type, payload }) => {
@@ -28,6 +30,12 @@ const Provider = ({ children }) => {
         user: {
           email: payload,
         },
+      };
+    case 'recommendations':
+      return {
+        ...state,
+        recommendations: payload,
+        isLoading: false,
       };
     case 'add-recipes':
       return {
@@ -101,11 +109,22 @@ const Provider = ({ children }) => {
     dispatch({ type: 'recipe-detail', payload: data[0] });
   };
 
+  const handleRecommendations = async ({ location }) => {
+    const data = await fetchAPI(
+      location.pathname.includes('bebidas')
+        ? 'fetchMealByName'
+        : 'fetchCocktailByName',
+      '',
+    );
+    dispatch({ type: 'recommendations', payload: data });
+  };
+
   const value = {
     appState,
     handleSubmitLogin,
     handleSearch,
     handleSearchById,
+    handleRecommendations,
   };
 
   return (
