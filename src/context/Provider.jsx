@@ -162,7 +162,7 @@ const Provider = ({ children }) => {
       saveLocalStorage('favoriteRecipes',
         [...getFavorites].filter((f) => f.id !== verifyId));
     } else {
-      const payload = verifyPath ? favoriteMeal : favoriteDrink;
+      const payload = verifyPath ? favoriteMeal(recipe) : favoriteDrink(recipe);
       dispatch({ type: ADD_FAVORITE_RECIPES, payload });
       saveLocalStorage('favoriteRecipes', [...getFavorites, payload]);
     }

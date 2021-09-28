@@ -1,5 +1,5 @@
 /* TODO colocar objetos e funcoes complementares para diminuir linha */
-export const favoriteMeal = {
+export const favoriteMeal = (recipe) => ({
   id: recipe.idMeal,
   type: 'comida',
   area: recipe.strArea,
@@ -7,9 +7,9 @@ export const favoriteMeal = {
   alcoholicOrNot: '',
   name: recipe.strMeal,
   image: recipe.strMealThumb,
-};
+});
 
-export const favoriteDrink = {
+export const favoriteDrink = (recipe) => ({
   id: recipe.idDrink,
   type: 'bebida',
   area: '',
@@ -17,7 +17,7 @@ export const favoriteDrink = {
   alcoholicOrNot: recipe.strAlcoholic,
   name: recipe.strDrink,
   image: recipe.strDrinkThumb,
-};
+});
 
 export const verifySearchMeal = {
   byIngredient: 'fetchMealByIngredient',
