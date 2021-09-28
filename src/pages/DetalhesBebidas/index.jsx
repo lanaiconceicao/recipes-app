@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import {
   Button, HeaderRecipes,
   IngredientList, Instruction,
@@ -65,7 +66,9 @@ const DetalhesBebidas = () => {
           height: '20%' } }
         dataTestId="start-recipe-btn"
       >
-        {recipeStarted ? 'Continuar Receita' : 'Iniciar Receita'}
+        <Link to={ `/bebidas/${recipe.idDrink}/in-progress` }>
+          {recipeStarted ? 'Continuar Receita' : 'Iniciar Receita'}
+        </Link>
       </Button>
     </article>
   );

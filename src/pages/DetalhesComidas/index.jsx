@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router';
 import ReactPlayer from 'react-player/youtube';
+import { Link } from 'react-router-dom';
 import {
   Button, HeaderRecipes, IngredientList,
   Instruction, Recommendations } from '../../components';
@@ -68,7 +69,10 @@ const DetalhesComidas = () => {
           height: '20%' } }
         dataTestId="start-recipe-btn"
       >
-        {recipeStarted ? 'Continuar Receita' : 'Iniciar Receita'}
+        <Link to={ `/comidas/${recipe.idMeal}/in-progress` }>
+          {recipeStarted ? 'Continuar Receita' : 'Iniciar Receita'}
+        </Link>
+
       </Button>
     </article>
   );
