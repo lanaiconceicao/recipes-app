@@ -14,14 +14,14 @@ const FilterRecipes = ({ onClick }) => (
     <Button
       dataTestId="filter-by-food-btn"
       onClick={ onClick }
-      name="meal"
+      name="comida"
     >
       Food
     </Button>
     <Button
       dataTestId="filter-by-drink-btn"
       onClick={ onClick }
-      name="drink"
+      name="bebida"
     >
       Drinks
     </Button>
