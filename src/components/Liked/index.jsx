@@ -11,13 +11,12 @@ const Liked = () => {
   const { pathname } = useLocation();
 
   const [isFavorite, setIsFavorite] = useState(false);
+
   useEffect(() => {
     const verifyId = pathname.includes('comidas') ? recipe.idMeal : recipe.idDrink;
     const verifyFavorite = favoriteRecipes.some((favorite) => favorite.id === verifyId);
     setIsFavorite(verifyFavorite);
   }, [recipe, favoriteRecipes, pathname]);
-
-  if (!recipe) return (<div>Carregando...</div>);
 
   return (
     <Button onClick={ () => handleFavorites({ recipe, path: pathname }) }>
