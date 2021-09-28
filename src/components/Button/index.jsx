@@ -23,11 +23,11 @@ Button.defaultProps = {
   disabled: false,
   onClick: null,
   submitBtn: false,
-  styleBtn: null,
+  styleBtn: {},
   name: '',
 };
 
-const { bool, func, node, string } = PropTypes;
+const { bool, func, node, string, objectOf } = PropTypes;
 
 Button.propTypes = {
   children: node.isRequired,
@@ -36,7 +36,7 @@ Button.propTypes = {
   name: string,
   onClick: func,
   submitBtn: bool,
-  styleBtn: Object,
+  styleBtn: objectOf(string),
 };
 
 export default Button;

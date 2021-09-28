@@ -25,13 +25,14 @@ const Recommendations = ({ recommendations }) => {
   const SIX = 6;
   const location = useLocation();
   const verifyPath = location.pathname.includes('bebidas');
+
   return (
     <div>
       Recomendacoes
       <Carousel
         responsive={ responsive }
       >
-        {recommendations.slice(0, SIX)
+        {recommendations && recommendations.slice(0, SIX)
           .map((recipe, i) => (
             <article key={ i } data-testid={ `${i}-recomendation-card` }>
               <img

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router';
 import ReactPlayer from 'react-player/youtube';
 import {
@@ -10,13 +10,19 @@ import style from './DetalhesComidas.module.css';
 const DetalhesComidas = () => {
   const { id } = useParams();
   const location = useLocation();
-  const { handleSearchById, handleRecommendations,
-    appState: { recipe, recommendations } } = useContext(Context);
-
+  const { handleSearchById, handleRecommendations, handleRecipeStarted,
+    appState: { inProgressRecipes, recipe, recommendations } } = useContext(Context);
+  const [recipeStarted, setRecipeStarted] = useState(false);
   useEffect(() => {
     handleSearchById({ location, id });
     handleRecommendations({ location });
   }, []);
+
+  useEffect(() => {
+    const isInDoneRecipes = Object
+      .keys(inProgressRecipes.meals).some((r) => r === recipe.idMeal);
+    setRecipeStarted(isInDoneRecipes);
+  }, [inProgressRecipes, recipe.idMeal]);
 
   if (Object.keys(recipe).length === 0) return (<div>Carregando...</div>);
 
@@ -53,12 +59,16 @@ const DetalhesComidas = () => {
       </div>
       <Recommendations recommendations={ recommendations } />
       <Button
+        onClick={ () => {
+          handleRecipeStarted({ recipe, path: location.pathname });
+          setRecipeStarted(true);
+        } }
         styleBtn={ { position: 'fixed',
           bottom: '0px',
           height: '20%' } }
         dataTestId="start-recipe-btn"
       >
-        Iniciar receita
+        {recipeStarted ? 'Continuar Receita' : 'Iniciar Receita'}
       </Button>
     </article>
   );

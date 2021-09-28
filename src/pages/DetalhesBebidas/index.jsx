@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router';
 import {
   Button, HeaderRecipes,
@@ -13,12 +13,21 @@ const DetalhesBebidas = () => {
   const {
     handleSearchById,
     handleRecommendations,
-    appState: { recipe, recommendations } } = useContext(Context);
+    handleRecipeStarted,
+    appState: { recipe, recommendations, inProgressRecipes } } = useContext(Context);
+
+  const [recipeStarted, setRecipeStarted] = useState(false);
 
   useEffect(() => {
     handleSearchById({ location, id });
     handleRecommendations({ location });
   }, []);
+
+  useEffect(() => {
+    const isInDoneRecipes = Object
+      .keys(inProgressRecipes.cocktails).some((r) => r === recipe.idDrink);
+    setRecipeStarted(isInDoneRecipes);
+  }, [inProgressRecipes, recipe.idDrink]);
 
   if (Object.keys(recipe).length === 0) return (<div>Carregando...</div>);
 
@@ -47,12 +56,16 @@ const DetalhesBebidas = () => {
       <Instruction instruction={ recipe.strInstructions } />
       <Recommendations recommendations={ recommendations } />
       <Button
+        onClick={ () => {
+          handleRecipeStarted({ recipe, path: location.pathname });
+          setRecipeStarted(true);
+        } }
         styleBtn={ { position: 'fixed',
           bottom: '0px',
           height: '20%' } }
         dataTestId="start-recipe-btn"
       >
-        Iniciar receita
+        {recipeStarted ? 'Continuar Receita' : 'Iniciar Receita'}
       </Button>
     </article>
   );
