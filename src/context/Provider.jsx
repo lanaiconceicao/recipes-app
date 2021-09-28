@@ -6,6 +6,8 @@ import { getLocalStorage, saveLocalStorage } from '../services/localStorage';
 import fetchAPI from '../services/fetchAPI';
 
 const IN_PROGRESS_RECIPES = 'in-progress-recipes';
+const ADD_FAVORITE_RECIPES = 'add-favorite-recipes';
+const REMOVE_FAVORITE_RECIPES = 'remove-favorite-recipes';
 
 const Provider = ({ children }) => {
   const history = useHistory();
@@ -59,6 +61,17 @@ const Provider = ({ children }) => {
         inProgressRecipes: payload,
       };
 
+    case ADD_FAVORITE_RECIPES:
+      return {
+        ...state,
+        favoriteRecipes: [...state.favoriteRecipes, payload],
+      };
+
+    case REMOVE_FAVORITE_RECIPES:
+      return {
+        ...state,
+        favoriteRecipes: [...state.favoriteRecipes].filter((f) => f.id !== payload),
+      };
     default:
       return state;
     }
@@ -194,13 +207,47 @@ const Provider = ({ children }) => {
     saveLocalStorage('inProgressRecipes', payload);
   };
 
+  const handleFavorites = ({ recipe, path }) => {
+    const verifyPath = path.includes('comidas');
+    const verifyId = verifyPath ? recipe.idMeal : recipe.idDrink;
+    const getFavorites = getLocalStorage('favoriteRecipes') || [];
+    const notInFavorites = getFavorites.some((favorite) => favorite.id !== verifyId);
+
+    if (notInFavorites) {
+      const favoriteMeal = {
+        area: recipe.strArea,
+        category: recipe.strCategory,
+        id: recipe.idMeal,
+        image: recipe.strMealThumb,
+        name: recipe.strMeal,
+        type: 'comida',
+      };
+
+      const favoriteDrink = {
+        alcoholicOrNot: recipe.strAlcoholic,
+        category: recipe.strCategory,
+        id: recipe.idDrink,
+        image: recipe.strDrinkThumb,
+        name: recipe.strDrink,
+        type: 'bebida',
+      };
+      const payload = verifyPath ? favoriteMeal : favoriteDrink;
+      dispatch({ type: ADD_FAVORITE_RECIPES, payload });
+      saveLocalStorage('favoriteRecipes', [...getFavorites, payload]);
+    }
+
+    dispatch({ type: REMOVE_FAVORITE_RECIPES, payload: verifyId });
+    saveLocalStorage('favoriteRecipes', [...getFavorites].filter((f) => f.id !== verifyId));
+  };
+
   const value = {
     appState,
-    handleSubmitLogin,
+    handleFavorites,
+    handleRecipeStarted,
+    handleRecommendations,
     handleSearch,
     handleSearchById,
-    handleRecommendations,
-    handleRecipeStarted,
+    handleSubmitLogin,
   };
 
   return (
