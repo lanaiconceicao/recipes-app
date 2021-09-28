@@ -5,6 +5,8 @@ import Context from './Context';
 import { getLocalStorage, saveLocalStorage } from '../services/localStorage';
 import fetchAPI from '../services/fetchAPI';
 
+const IN_PROGRESS_RECIPES = 'in-progress-recipes';
+
 const Provider = ({ children }) => {
   const history = useHistory();
   const initialState = {
@@ -51,13 +53,7 @@ const Provider = ({ children }) => {
         recipe: payload,
       };
 
-    case 'in-progress-recipes':
-      return {
-        ...state,
-        inProgressRecipes: payload,
-      };
-
-    case 'in-progress-recipes-local-storage':
+    case IN_PROGRESS_RECIPES:
       return {
         ...state,
         inProgressRecipes: payload,
@@ -77,7 +73,7 @@ const Provider = ({ children }) => {
     };
     dispatch(
       {
-        type: 'in-progress-recipes-local-storage',
+        type: IN_PROGRESS_RECIPES,
         payload: InProgressRecipes,
       },
     );
@@ -194,7 +190,7 @@ const Provider = ({ children }) => {
     };
 
     const payload = verifyPath ? mealToSave : drinkToSave;
-    dispatch({ type: 'in-progress-recipes', payload });
+    dispatch({ type: IN_PROGRESS_RECIPES, payload });
     saveLocalStorage('inProgressRecipes', payload);
   };
 
