@@ -2,9 +2,13 @@ const fetchAPI = async (chooseUrl, query) => {
   const verifyUrl = {
     fetchMealByIngredient: `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`,
 
+    fetchMealByFirstLetter: `https://www.themealdb.com/api/json/v1/1/search.php?f=${query}`,
+
+    fetchMealById: `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${query}`,
+
     fetchMealByName: `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`,
 
-    fetchMealByFirstLetter: `https://www.themealdb.com/api/json/v1/1/search.php?f=${query}`,
+    fetchCocktailById: `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${query}`,
 
     fetchCocktailByIngredient: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${query}`,
 
