@@ -8,23 +8,16 @@ const ReceitasFeitas = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   const filterByCategory = (category) => {
-    // if (selectedCategory === category) {
-    //   updateRecipes(recipes);
-    //   setSelectedCategory('');
-    // } else {
-    //   const APIResponse = await fetchByCategories(getUrlLocation(), category);
-    //   setFilteredRecipes(APIResponse);
-    //   setSelectedCategory(category);
-    // }
     setSelectedCategory(category);
   };
+
   const renderCards = (recipesArray) => (
     recipesArray
       .filter((recipe) => (recipe.type.includes(selectedCategory)))
       .map((recipe, index) => (
         <div key={ index } className="horizontal-card">
           <Link
-            to={ recipe.type === 'meal'
+            to={ recipe.type === 'comida'
               ? `/comidas/${recipe.id}`
               : `/bebidas/${recipe.id}` }
           >
@@ -35,14 +28,14 @@ const ReceitasFeitas = () => {
             />
             <p data-testid={ `${index}-horizontal-top-name` }>{recipe.name}</p>
           </Link>
-          { recipe.type === 'meal' && <p>{recipe.area}</p> }
-          { recipe.type === 'drink' && <p>{recipe.alcoholicOrNot}</p> }
+          { recipe.type === 'comida' && <p>{recipe.area}</p> }
+          { recipe.type === 'bebida' && <p>{recipe.alcoholicOrNot}</p> }
           <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
           <p data-testid={ `${index}-horizontal-done-date` }>
             Feita em:
             {recipe.doneDate}
           </p>
-          { recipe.type === 'meal' && recipe.tags.map((tagName) => (
+          { recipe.type === 'comida' && recipe.tags.map((tagName) => (
             <p
               data-testid={ `${index}-${tagName}-horizontal-tag` }
               key={ tagName }
@@ -55,7 +48,12 @@ const ReceitasFeitas = () => {
             type={ recipe.type }
             id={ recipe.id }
             dataTestId={ `${index}-horizontal-share-btn` }
-            destinationUrl={ window.location.href }
+            destinationUrl={
+              window.location.href.split(window.location.pathname)[0]
+              + (recipe.type === 'comida'
+                ? `/comidas/${recipe.id}`
+                : `/bebidas/${recipe.id}`)
+            }
           />
         </div>
       ))
