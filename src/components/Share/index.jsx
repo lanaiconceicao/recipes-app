@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
+import PropTypes from 'prop-types';
 import Button from '../Button';
 import shareIcon from '../../images/shareIcon.svg';
 
-const Share = () => {
+const Share = ({ dataTestId, destinationUrl }) => {
   const [showCopied, setShowCopied] = useState(false);
   return (
     <Button
-      onClick={ () => copy(window.location.href).then(() => {
+      dataTestId={ dataTestId }
+      onClick={ () => copy(destinationUrl).then(() => {
         setShowCopied(true);
       }) }
     >
@@ -19,6 +21,11 @@ const Share = () => {
       {showCopied && 'Link copiado!'}
     </Button>
   );
+};
+
+Share.propTypes = {
+  dataTestId: PropTypes.string.isRequired,
+  destinationUrl: PropTypes.string.isRequired,
 };
 
 export default Share;

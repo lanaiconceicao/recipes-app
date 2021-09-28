@@ -13,7 +13,7 @@ const HeaderRecipes = ({
     <h2 data-testid="recipe-title">{title}</h2>
     <h3 data-testid="recipe-category">{category}</h3>
     <Liked />
-    <Share />
+    <Share destinationUrl={ window.location.href } />
   </section>
 );
 
