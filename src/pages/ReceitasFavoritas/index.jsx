@@ -32,10 +32,8 @@ const ReceitasFavoritas = () => {
           {/* { recipe.type === 'comida' && <p>{`${recipe.area} - ${recipe.category}`}</p> }
           { recipe.type === 'bebida' && <p>{recipe.alcoholicOrNot}</p> } */}
           <p data-testid={ `${index}-horizontal-top-text` }>
-            {
-              recipe.type === 'comida' ? `${recipe.area} - ${recipe.category}`
-                : recipe.alcoholicOrNot
-            }
+            { recipe.type === 'comida' ? `${recipe.area} - ${recipe.category}`
+              : recipe.alcoholicOrNot }
           </p>
 
           <Share

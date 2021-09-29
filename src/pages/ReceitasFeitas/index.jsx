@@ -28,9 +28,10 @@ const ReceitasFeitas = () => {
             />
             <p data-testid={ `${index}-horizontal-top-name` }>{recipe.name}</p>
           </Link>
-          { recipe.type === 'comida' && <p>{recipe.area}</p> }
-          { recipe.type === 'bebida' && <p>{recipe.alcoholicOrNot}</p> }
-          <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            { recipe.type === 'comida' ? `${recipe.area} - ${recipe.category}`
+              : recipe.alcoholicOrNot }
+          </p>
           <p data-testid={ `${index}-horizontal-done-date` }>
             Feita em:
             {recipe.doneDate}
