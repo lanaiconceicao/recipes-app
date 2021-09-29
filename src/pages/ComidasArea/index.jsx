@@ -1,9 +1,11 @@
 import React from 'react';
-import { Footer, Header } from '../../components';
+import { Footer, Header, Select } from '../../components';
 
 const ComidasArea = () => (
   <>
     <Header title="Explorar Origem" displaySearchBtn />
+    <Select />
+    {/* PARAMOS AQUI: Falta fazer a lógica do Card */}
     <Footer />
   </>
 );
