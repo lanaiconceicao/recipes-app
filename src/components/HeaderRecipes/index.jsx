@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import Context from '../../context/Context';
 import Liked from '../Liked';
 import Share from '../Share';
 
@@ -7,15 +8,18 @@ const HeaderRecipes = ({
   category,
   img,
   title,
-}) => (
-  <section>
-    <img data-testid="recipe-photo" src={ img } alt={ `Imagem do ${title}` } />
-    <h2 data-testid="recipe-title">{title}</h2>
-    <h3 data-testid="recipe-category">{category}</h3>
-    <Liked />
-    <Share destinationUrl={ window.location.href } />
-  </section>
-);
+}) => {
+  const { appState: { recipe } } = useContext(Context);
+  return (
+    <section>
+      <img data-testid="recipe-photo" src={ img } alt={ `Imagem do ${title}` } />
+      <h2 data-testid="recipe-title">{title}</h2>
+      <h3 data-testid="recipe-category">{category}</h3>
+      <Liked recipe={ recipe } dataTestId="favorite-btn" />
+      <Share destinationUrl={ window.location.href } dataTestId="share-btn" />
+    </section>
+  );
+};
 
 const { string } = PropTypes;
 

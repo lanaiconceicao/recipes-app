@@ -151,9 +151,7 @@ const Provider = ({ children }) => {
     saveLocalStorage('inProgressRecipes', payload);
   };
 
-  const handleFavorites = ({ recipe, path }) => {
-    const verifyPath = path.includes('comidas');
-    const verifyId = verifyPath ? recipe.idMeal : recipe.idDrink;
+  const handleFavorites = ({ recipe, verifyId }) => {
     const getFavorites = getLocalStorage('favoriteRecipes') || [];
     const isInFavorites = getFavorites.some((favorite) => favorite.id === verifyId);
 
@@ -162,7 +160,10 @@ const Provider = ({ children }) => {
       saveLocalStorage('favoriteRecipes',
         [...getFavorites].filter((f) => f.id !== verifyId));
     } else {
-      const payload = verifyPath ? favoriteMeal(recipe) : favoriteDrink(recipe);
+      const payload = Object.keys(recipe).includes('idMeal')
+        || Object.values(recipe).includes('comida')
+        ? favoriteMeal(recipe)
+        : favoriteDrink(recipe);
       dispatch({ type: ADD_FAVORITE_RECIPES, payload });
       saveLocalStorage('favoriteRecipes', [...getFavorites, payload]);
     }

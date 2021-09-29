@@ -25,12 +25,18 @@ const ReceitasFavoritas = () => {
               data-testid={ `${index}-horizontal-image` }
               src={ recipe.image }
               alt={ `receita ${index}` }
+              style={ { width: '25%' } }
             />
-            <p data-testid={ `${index}-horizontal-top-name` }>{recipe.name}</p>
+            <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
           </Link>
-          { recipe.type === 'comida' && <p>{recipe.area}</p> }
-          { recipe.type === 'bebida' && <p>{recipe.alcoholicOrNot}</p> }
-          <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
+          {/* { recipe.type === 'comida' && <p>{`${recipe.area} - ${recipe.category}`}</p> }
+          { recipe.type === 'bebida' && <p>{recipe.alcoholicOrNot}</p> } */}
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {
+              recipe.type === 'comida' ? `${recipe.area} - ${recipe.category}`
+                : recipe.alcoholicOrNot
+            }
+          </p>
 
           <Share
             type={ recipe.type }
@@ -44,7 +50,7 @@ const ReceitasFavoritas = () => {
             }
           />
 
-          <Liked />
+          <Liked recipe={ recipe } dataTestId={ `${index}-horizontal-favorite-btn` } />
           {/* Aguardando implementação da lógica de like */}
         </div>
       ))
