@@ -7,7 +7,6 @@ import {
   Recommendations } from '../../components';
 import Context from '../../context/Context';
 // import style from './DetalhesBebidas.module.css';
-
 const DetalhesBebidas = () => {
   const { id } = useParams();
   const location = useLocation();
