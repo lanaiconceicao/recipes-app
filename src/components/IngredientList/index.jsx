@@ -4,6 +4,7 @@ import React from 'react';
 const IngredientList = ({
   isCheckbox,
   ingredients,
+  checkboxIngredients: { list, change },
   measures,
 }) => (
   <div>
@@ -19,17 +20,36 @@ const IngredientList = ({
               {`- ${ingredient} - ${measures[i]}`}
             </li>)
           : (
-            <li key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
-              <input type="checkbox" value={ ingredient } />
+            <li
+              style={ Object.values(list)[i]
+                ? { textDecoration: 'line-through' }
+                : { textDecoration: 'none' } }
+              key={ i }
+              data-testid={ `${i}-ingredient-step` }
+            >
+              <input
+                type="checkbox"
+                value={ Object.values(list)[i] }
+                name={ Object.keys(list)[i] }
+                checked={ Object.values(list)[i] }
+                onClick={ change }
+              />
               {ingredient}
             </li>)))}
     </ul>
   </div>
 );
+IngredientList.defaultProps = {
+  checkboxIngredients: null,
+};
 
 IngredientList.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   measures: PropTypes.arrayOf(PropTypes.string).isRequired,
   isCheckbox: PropTypes.bool.isRequired,
+  checkboxIngredients: PropTypes.shape({
+    list: PropTypes.arrayOf(PropTypes.object),
+    change: PropTypes.func,
+  }),
 };
 export default IngredientList;

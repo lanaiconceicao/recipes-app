@@ -66,7 +66,6 @@ const Provider = ({ children }) => {
       cocktails: {},
     };
     const getFavorites = getLocalStorage('favoriteRecipes') || [];
-    console.log(getFavorites);
     dispatch({ type: IN_PROGRESS_RECIPES, payload: InProgressRecipes });
     dispatch({ type: FAVORITE_RECIPES_LOCAL_STORAGE, payload: getFavorites });
   }, []);
@@ -169,6 +168,10 @@ const Provider = ({ children }) => {
     }
   };
 
+  const handleProgressRecipe = () => {
+
+  };
+
   const value = {
     appState,
     handleFavorites,
@@ -177,6 +180,7 @@ const Provider = ({ children }) => {
     handleSearch,
     handleSearchById,
     handleSubmitLogin,
+    handleProgressRecipe,
   };
 
   return (

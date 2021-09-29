@@ -49,7 +49,6 @@ const ReceitasFavoritas = () => {
           />
 
           <Liked recipe={ recipe } dataTestId={ `${index}-horizontal-favorite-btn` } />
-          {/* Aguardando implementação da lógica de like */}
         </div>
       ))
   );
