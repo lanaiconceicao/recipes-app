@@ -26,7 +26,7 @@ const ReceitasFeitas = () => {
               src={ recipe.image }
               alt={ `receita ${index}` }
             />
-            <p data-testid={ `${index}-horizontal-top-name` }>{recipe.name}</p>
+            <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
           </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>
             { recipe.type === 'comida' ? `${recipe.area} - ${recipe.category}`
