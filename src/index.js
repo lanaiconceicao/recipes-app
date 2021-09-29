@@ -7,11 +7,11 @@ import * as serviceWorker from './serviceWorker';
 import Provider from './context/Provider';
 
 ReactDOM.render(
-  <Provider>
-    <Router>
+  <Router>
+    <Provider>
       <App />
-    </Router>
-  </Provider>,
+    </Provider>
+  </Router>,
   document.getElementById('root'),
 );
 serviceWorker.unregister();

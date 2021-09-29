@@ -1,0 +1,12 @@
+.form {
+  display: grid;
+  grid: 1fr 1.5fr 1fr / 1fr;
+  width: 50%;
+}
+
+.section {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  width: 100%;
+}
