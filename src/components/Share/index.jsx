@@ -8,13 +8,13 @@ const Share = ({ dataTestId, destinationUrl }) => {
   const [showCopied, setShowCopied] = useState(false);
   return (
     <Button
-      dataTestId={ dataTestId }
+      // dataTestId={ dataTestId }
       onClick={ () => copy(destinationUrl).then(() => {
         setShowCopied(true);
       }) }
     >
       <img
-        // data-testid={ dataTestId }
+        data-testid={ dataTestId }
         src={ shareIcon }
         alt="share icon"
       />

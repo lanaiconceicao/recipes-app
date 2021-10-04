@@ -68,6 +68,8 @@ const Provider = ({ children }) => {
     const getFavorites = getLocalStorage('favoriteRecipes') || [];
     dispatch({ type: IN_PROGRESS_RECIPES, payload: InProgressRecipes });
     dispatch({ type: FAVORITE_RECIPES_LOCAL_STORAGE, payload: getFavorites });
+    saveLocalStorage('inProgressRecipes', InProgressRecipes);
+    saveLocalStorage('favoriteRecipes', getFavorites);
   }, []);
 
   const handleSubmitLogin = (e, email) => {
@@ -133,7 +135,7 @@ const Provider = ({ children }) => {
       ...getRecipes,
       meals: {
         ...getRecipes.meals,
-        [recipe.idMeal]: [],
+        [recipe.idMeal]: {},
       },
     };
 
@@ -141,7 +143,7 @@ const Provider = ({ children }) => {
       ...getRecipes,
       cocktails: {
         ...getRecipes.cocktails,
-        [recipe.idDrink]: [],
+        [recipe.idDrink]: {},
       },
     };
 
@@ -168,8 +170,29 @@ const Provider = ({ children }) => {
     }
   };
 
-  const handleProgressRecipe = () => {
+  const handleProgressRecipe = ({ id, checkboxList, type }) => {
+    const getRecipes = getLocalStorage('inProgressRecipes') || {
+      meals: {},
+      cocktails: {},
+    };
+    const mealToSave = {
+      ...getRecipes,
+      meals: {
+        ...getRecipes.meals,
+        [id]: { ...checkboxList },
+      },
+    };
 
+    const drinkToSave = {
+      ...getRecipes,
+      cocktails: {
+        ...getRecipes.cocktails,
+        [id]: { ...checkboxList },
+      },
+    };
+    const payload = type === 'comida' ? mealToSave : drinkToSave;
+    dispatch({ type: IN_PROGRESS_RECIPES, payload });
+    saveLocalStorage('inProgressRecipes', payload);
   };
 
   const value = {

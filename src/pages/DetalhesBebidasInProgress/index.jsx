@@ -2,9 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
 import { Button, HeaderRecipes, IngredientList, Instruction } from '../../components';
 import Context from '../../context/Context';
+import { filterIngredients, filterMeasures } from './helpers';
 
 const DetalhesBebidasInProgress = () => {
-  const { appState: { recipe }, handleSearchById, handleProgressRecipe } = useContext(Context);
+  const {
+    appState: { recipe, inProgressRecipes: { cocktails } },
+    handleSearchById, handleProgressRecipe,
+  } = useContext(Context);
   const { id } = useParams();
   const location = useLocation();
   useEffect(() => {
@@ -12,44 +16,42 @@ const DetalhesBebidasInProgress = () => {
   }, []);
   const [checkboxList, setCheckboxList] = useState({});
 
-  const filterIngredients = Object
-    .entries(recipe)
-    .filter((key) => key[0].includes('strIngredient') && key[1])
-    .map((e) => e[1]);
-
   useEffect(() => {
-    const state = filterIngredients.reduce((obj, ingredient) => ({
-      ...obj,
-      [ingredient]: false,
-    }), {});
-    setCheckboxList(state);
-  }, [recipe]);
-
-  const filterMeasures = Object
-    .entries(recipe)
-    .filter((key) => key[0].includes('strMeasure') && key[1])
-    .map((e) => e[1]);
+    const findRecipeIngredients = cocktails[id];
+    if (!findRecipeIngredients) {
+      const state = filterIngredients(recipe).reduce((obj, ingredient) => ({
+        ...obj,
+        [ingredient]: false,
+      }), {});
+      return setCheckboxList(state);
+    }
+    setCheckboxList(findRecipeIngredients);
+  }, [recipe, cocktails, id]);
 
   const handleChange = ({ target: { name, value } }) => {
-    setCheckboxList({
+    const obj = {
       ...checkboxList,
       [name]: !JSON.parse(value),
-    });
+    };
+    setCheckboxList(obj);
+    handleProgressRecipe({ id: recipe.idDrink, checkboxList: obj, type: 'bebida' });
   };
+
   return (
     <div>
       <HeaderRecipes
         category={ recipe.strCategory }
         img={ recipe.strDrinkThumb }
         title={ recipe.strDrink }
+        url={ window.location.href.split('/i')[0] }
       />
 
       <Instruction instruction={ recipe.strInstructions } />
 
       <IngredientList
         isCheckbox
-        ingredients={ filterIngredients }
-        measures={ filterMeasures }
+        ingredients={ filterIngredients(recipe) }
+        measures={ filterMeasures(recipe) }
         checkboxIngredients={ { list: checkboxList, change: handleChange } }
       />
       <Button dataTestId="finish-recipe-btn">
