@@ -159,7 +159,7 @@ const Provider = ({ children }) => {
 
     const payload = verifyPath ? mealToSave : drinkToSave;
     dispatch({ type: IN_PROGRESS_RECIPES, payload });
-    saveLocalStorage('inProgressRecipes', payload);
+    // saveLocalStorage('inProgressRecipes', payload);
   };
 
   const handleFavorites = ({ recipe, verifyId }) => {
