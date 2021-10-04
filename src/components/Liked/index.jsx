@@ -14,7 +14,6 @@ const Liked = ({ recipe, dataTestId }) => {
   const verifyId = Object.keys(recipe).includes('idMeal')
     ? recipe.idMeal || recipe.id
     : recipe.idDrink || recipe.id;
-  console.log(verifyId);
   useEffect(() => {
     const verifyFavorite = favoriteRecipes.some((favorite) => favorite.id === verifyId);
     setIsFavorite(verifyFavorite);

@@ -43,6 +43,7 @@ const DetalhesComidas = () => {
         category={ recipe.strCategory }
         img={ recipe.strMealThumb }
         title={ recipe.strMeal }
+        url={ window.location.href }
       />
       <IngredientList
         isCheckbox={ false }
