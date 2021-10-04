@@ -40,7 +40,10 @@ const IngredientList = ({
   </div>
 );
 IngredientList.defaultProps = {
-  checkboxIngredients: null,
+  checkboxIngredients: PropTypes.shape({
+    list: [],
+    change: null,
+  }),
 };
 
 IngredientList.propTypes = {

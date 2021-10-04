@@ -8,7 +8,7 @@ import { filterIngredients, filterMeasures } from './helpers';
 const DetalhesBebidasInProgress = () => {
   const {
     appState: { recipe, inProgressRecipes: { cocktails } },
-    handleSearchById, handleProgressRecipe,
+    handleSearchById, handleProgressRecipe, handleDoneRecipe,
   } = useContext(Context);
   const { id } = useParams();
   const location = useLocation();
@@ -59,7 +59,7 @@ const DetalhesBebidasInProgress = () => {
         checkboxIngredients={ { list: checkboxList, change: handleChange } }
       />
       <Button disabled={ recipeStillInProgress } dataTestId="finish-recipe-btn">
-        <Link to="/receitas-feitas">
+        <Link onClick={ () => handleDoneRecipe(recipe, 'bebida') } to="/receitas-feitas">
           Finalizar receita
         </Link>
       </Button>

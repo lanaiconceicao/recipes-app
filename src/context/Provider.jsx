@@ -5,13 +5,15 @@ import Context from './Context';
 import { getLocalStorage, saveLocalStorage } from '../services/localStorage';
 import fetchAPI from '../services/fetchAPI';
 import { favoriteDrink,
-  favoriteMeal, verifySearchCocktail, verifySearchMeal,
+  favoriteMeal, verifySearchCocktail, verifySearchMeal, saveRecipe,
 } from './helpers';
 
 const IN_PROGRESS_RECIPES = 'in-progress-recipes';
 const ADD_FAVORITE_RECIPES = 'add-favorite-recipes';
 const REMOVE_FAVORITE_RECIPES = 'remove-favorite-recipes';
 const FAVORITE_RECIPES_LOCAL_STORAGE = 'local-storage-recipes';
+const DONE_RECIPE = 'done-recipe';
+
 const Provider = ({ children }) => {
   const history = useHistory();
   const initialState = {
@@ -53,6 +55,10 @@ const Provider = ({ children }) => {
       return { ...state,
         favoriteRecipes: [...state.favoriteRecipes].filter((f) => f.id !== payload),
       };
+    case 'done-recipe-local-storage':
+      return { ...state, doneRecipes: payload };
+    case DONE_RECIPE:
+      return { ...state, doneRecipes: [...state.doneRecipes, payload] };
     default:
       return state;
     }
@@ -66,10 +72,14 @@ const Provider = ({ children }) => {
       cocktails: {},
     };
     const getFavorites = getLocalStorage('favoriteRecipes') || [];
+    const getDoneRecipes = getLocalStorage('doneRecipes') || [];
+
     dispatch({ type: IN_PROGRESS_RECIPES, payload: InProgressRecipes });
     dispatch({ type: FAVORITE_RECIPES_LOCAL_STORAGE, payload: getFavorites });
+    dispatch({ type: 'done-recipe-local-storage', payload: getDoneRecipes });
     saveLocalStorage('inProgressRecipes', InProgressRecipes);
     saveLocalStorage('favoriteRecipes', getFavorites);
+    saveLocalStorage('doneRecipes', getDoneRecipes);
   }, []);
 
   const handleSubmitLogin = (e, email) => {
@@ -195,6 +205,13 @@ const Provider = ({ children }) => {
     saveLocalStorage('inProgressRecipes', payload);
   };
 
+  const handleDoneRecipe = (recipe, type) => {
+    const getDoneRecipes = getLocalStorage('doneRecipes') || [];
+    const payload = saveRecipe(recipe, type);
+    dispatch({ type: DONE_RECIPE, payload });
+    saveLocalStorage('doneRecipes', [...getDoneRecipes, payload]);
+  };
+
   const value = {
     appState,
     handleFavorites,
@@ -203,6 +220,7 @@ const Provider = ({ children }) => {
     handleSearch,
     handleSearchById,
     handleSubmitLogin,
+    handleDoneRecipe,
     handleProgressRecipe,
   };
 
