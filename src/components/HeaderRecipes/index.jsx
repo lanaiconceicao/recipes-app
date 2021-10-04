@@ -8,6 +8,7 @@ const HeaderRecipes = ({
   category,
   img,
   title,
+  url,
 }) => {
   const { appState: { recipe } } = useContext(Context);
   return (
@@ -16,7 +17,7 @@ const HeaderRecipes = ({
       <h2 data-testid="recipe-title">{title}</h2>
       <h3 data-testid="recipe-category">{category}</h3>
       <Liked recipe={ recipe } dataTestId="favorite-btn" />
-      <Share destinationUrl={ window.location.href } dataTestId="share-btn" />
+      <Share destinationUrl={ url } dataTestId="share-btn" />
     </section>
   );
 };
@@ -27,6 +28,7 @@ HeaderRecipes.propTypes = {
   category: string.isRequired,
   img: string.isRequired,
   title: string.isRequired,
+  url: string.isRequired,
 };
 
 /*

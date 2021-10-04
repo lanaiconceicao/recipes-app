@@ -9,6 +9,6 @@
 }
 
 .button:disabled {
-  background: grey;
-  color: black;
+  background: black;
+  color: white;
 }
