@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Button, HeaderRecipes, IngredientList, Instruction } from '../../components';
 import Context from '../../context/Context';
 import { filterIngredients, filterMeasures } from './helpers';
@@ -15,6 +16,7 @@ const DetalhesBebidasInProgress = () => {
     handleSearchById({ location, id });
   }, []);
   const [checkboxList, setCheckboxList] = useState({});
+  const [recipeStillInProgress, setRecipeStillInProgress] = useState(true);
 
   useEffect(() => {
     const findRecipeIngredients = cocktails[id];
@@ -35,6 +37,8 @@ const DetalhesBebidasInProgress = () => {
     };
     setCheckboxList(obj);
     handleProgressRecipe({ id: recipe.idDrink, checkboxList: obj, type: 'bebida' });
+    const areAllDone = Object.values(obj).every((ingredient) => ingredient);
+    setRecipeStillInProgress(!areAllDone);
   };
 
   return (
@@ -54,8 +58,10 @@ const DetalhesBebidasInProgress = () => {
         measures={ filterMeasures(recipe) }
         checkboxIngredients={ { list: checkboxList, change: handleChange } }
       />
-      <Button dataTestId="finish-recipe-btn">
-        Finalizar receita
+      <Button disabled={ recipeStillInProgress } dataTestId="finish-recipe-btn">
+        <Link to="/receitas-feitas">
+          Finalizar receita
+        </Link>
       </Button>
     </div>
   );
