@@ -20,11 +20,6 @@ const Comidas = () => {
 
   const location = useLocation();
 
-  useEffect(() => {
-    const searchObj = { query: '', typeSearch: 'byName', location };
-    handleSearch(searchObj);
-  }, []);
-
   const getUrlLocation = () => {
     if (location.pathname.includes('comida')) {
       return 'meal';
@@ -34,6 +29,8 @@ const Comidas = () => {
   };
 
   useEffect(() => {
+    const searchObj = { query: '', typeSearch: 'byName', location };
+    handleSearch(searchObj);
     const updateCategories = async () => {
       const categoriesBtn = await fetchCategories(getUrlLocation());
       setCategories(categoriesBtn);

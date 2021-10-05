@@ -10,6 +10,7 @@ import { favoriteDrink,
 
 const IN_PROGRESS_RECIPES = 'in-progress-recipes';
 const ADD_FAVORITE_RECIPES = 'add-favorite-recipes';
+const ADD_RECIPES = 'add-recipes';
 const REMOVE_FAVORITE_RECIPES = 'remove-favorite-recipes';
 const FAVORITE_RECIPES_LOCAL_STORAGE = 'local-storage-recipes';
 const Provider = ({ children }) => {
@@ -39,7 +40,7 @@ const Provider = ({ children }) => {
         ...state, user: { email: payload } };
     case 'recommendations':
       return { ...state, recommendations: payload, isLoading: false };
-    case 'add-recipes':
+    case ADD_RECIPES:
       return { ...state, recipes: payload };
     case 'recipe-detail':
       return { ...state, recipe: payload };
@@ -66,7 +67,6 @@ const Provider = ({ children }) => {
       cocktails: {},
     };
     const getFavorites = getLocalStorage('favoriteRecipes') || [];
-    console.log(getFavorites);
     dispatch({ type: IN_PROGRESS_RECIPES, payload: InProgressRecipes });
     dispatch({ type: FAVORITE_RECIPES_LOCAL_STORAGE, payload: getFavorites });
   }, []);
@@ -81,6 +81,7 @@ const Provider = ({ children }) => {
   };
 
   const handleSearch = async ({ query, typeSearch, location }) => {
+    // const searchObj = { query: '', typeSearch: 'byName', location };
     const data = await fetchAPI(
       location.pathname.includes('comidas')
         ? verifySearchMeal[typeSearch]
@@ -88,7 +89,7 @@ const Provider = ({ children }) => {
       query,
     );
 
-    dispatch({ type: 'add-recipes', payload: data });
+    dispatch({ type: ADD_RECIPES, payload: data });
 
     if (data.length === 0) {
       global
@@ -169,6 +170,16 @@ const Provider = ({ children }) => {
     }
   };
 
+  /* const handleIngredientsList = async (ingredient, path) => {
+    const data = await fetchAPI(
+      path === 'comidas'
+        ? 'fetchMealByIngredient'
+        : 'fetchCocktailByIngredient',
+      ingredient,
+    );
+    dispatch({ type: ADD_RECIPES, payload: { data, comesFromIngredients: true } });
+  };
+ */
   const value = {
     appState,
     handleFavorites,
