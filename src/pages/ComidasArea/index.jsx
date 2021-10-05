@@ -1,12 +1,15 @@
-import { useLocation } from 'react-router-dom';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import { Footer, Header, Select, Card } from '../../components';
-import Context from '../../context/Context';
 
 const ComidasArea = () => {
-  const { appState: { recipes }, handleSearch } = useContext(Context);
   const [areaMeals, setAreaMeals] = useState([]);
   const [selectedArea, setSelectedArea] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handlePageClick = ({ selected: selectedPage }) => {
+    setCurrentPage(selectedPage);
+  };
 
   const fetchAreaFiltered = async (query) => {
     try {
@@ -18,13 +21,21 @@ const ComidasArea = () => {
     }
   };
 
-  const location = useLocation();
+  const fetchAreaUnfiltered = async () => {
+    try {
+      const r = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      const data = await r.json();
+      console.log(data.meals);
+      return data.meals;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  // Falta fazer o resto da lógica de aparecer todas as receitas quando a pág começa no All
   useEffect(() => {
     if (selectedArea === '') {
-      handleSearch({ query: selectedArea, typeSearch: 'byName', location });
-      setAreaMeals(recipes);
+      fetchAreaUnfiltered()
+        .then((result) => setAreaMeals(result));
     } else {
       fetchAreaFiltered(selectedArea).then((result) => setAreaMeals(result));
     }
@@ -34,25 +45,40 @@ const ComidasArea = () => {
     setSelectedArea(value);
   };
 
-  const getCard = (cards) => (
-    cards.map((item, i) => (
-      <Card
-        id={ item.idMeal }
-        img={ item.strMealThumb }
-        name={ item.strMeal }
-        key={ i }
-        mealOrDrink="comidas"
-        index={ i }
-      />
-    ))
-  );
+  const getCards = (meals) => {
+    const PER_PAGE = 12;
+    const offset = currentPage * PER_PAGE;
+    const pageCount = Math.ceil(meals.length / PER_PAGE);
+    return (
+      <>
+        { meals
+          .slice(offset, offset + PER_PAGE)
+          .map((meal, i) => (
+            <Card
+              id={ meal.idMeal }
+              img={ meal.strMealThumb }
+              name={ meal.strMeal }
+              key={ i }
+              mealOrDrink="comidas"
+              index={ i }
+            />
+          )) }
+        <ReactPaginate
+          previousLabel="Anterior"
+          nextLabel="Proxima"
+          breakLabel="..."
+          pageCount={ pageCount }
+          onPageChange={ handlePageClick }
+        />
+      </>);
+  };
 
   return (
     <>
       <Header title="Explorar Origem" displaySearchBtn />
       <Select onChange={ handleChange } />
       {/* PARAMOS AQUI: Falta fazer a lógica do Card */}
-      { getCard(areaMeals || [])}
+      { getCards(areaMeals || [])}
       <Footer />
     </>
   );

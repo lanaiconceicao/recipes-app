@@ -11,7 +11,7 @@ const Select = ({ onChange }) => {
 
   return (
     <select data-testid="explore-by-area-dropdown" onChange={ onChange }>
-      <option value="">All</option>
+      <option value="" data-testid="All-option">All</option>
       {areas
         .map((area, index) => (
           <option data-testid={ `${area}-option` } key={ index }>
