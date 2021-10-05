@@ -32,7 +32,6 @@ export const verifySearchCocktail = {
 };
 
 export const saveRecipe = (recipe, type) => {
-  console.log(recipe);
   const date = new Date();
   const mealToSave = {
     id: recipe.idMeal,

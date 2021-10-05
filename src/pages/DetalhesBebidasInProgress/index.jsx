@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useLocation, useParams, useHistory } from 'react-router';
 import { Button, HeaderRecipes, IngredientList, Instruction } from '../../components';
 import Context from '../../context/Context';
 import { filterIngredients, filterMeasures } from './helpers';
@@ -12,6 +11,7 @@ const DetalhesBebidasInProgress = () => {
   } = useContext(Context);
   const { id } = useParams();
   const location = useLocation();
+  const history = useHistory();
   useEffect(() => {
     handleSearchById({ location, id });
   }, []);
@@ -20,7 +20,7 @@ const DetalhesBebidasInProgress = () => {
 
   useEffect(() => {
     const findRecipeIngredients = cocktails[id];
-    if (!findRecipeIngredients) {
+    if (!findRecipeIngredients || Object.keys(findRecipeIngredients).length === 0) {
       const state = filterIngredients(recipe).reduce((obj, ingredient) => ({
         ...obj,
         [ingredient]: false,
@@ -28,12 +28,16 @@ const DetalhesBebidasInProgress = () => {
       return setCheckboxList(state);
     }
     setCheckboxList(findRecipeIngredients);
-  }, [recipe, cocktails, id]);
+    const areAllDone = Object
+      .values(findRecipeIngredients).every((ingredient) => ingredient);
+    setRecipeStillInProgress(!areAllDone);
+  }, [cocktails, recipe, id]);
 
-  const handleChange = ({ target: { name, value } }) => {
+  const handleChange = ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     const obj = {
       ...checkboxList,
-      [name]: !JSON.parse(value),
+      [target.name]: value,
     };
     setCheckboxList(obj);
     handleProgressRecipe({ id: recipe.idDrink, checkboxList: obj, type: 'bebida' });
@@ -58,10 +62,15 @@ const DetalhesBebidasInProgress = () => {
         measures={ filterMeasures(recipe) }
         checkboxIngredients={ { list: checkboxList, change: handleChange } }
       />
-      <Button disabled={ recipeStillInProgress } dataTestId="finish-recipe-btn">
-        <Link onClick={ () => handleDoneRecipe(recipe, 'bebida') } to="/receitas-feitas">
-          Finalizar receita
-        </Link>
+      <Button
+        disabled={ recipeStillInProgress }
+        dataTestId="finish-recipe-btn"
+        onClick={ () => {
+          handleDoneRecipe(recipe, 'comida');
+          history.push('/receitas-feitas');
+        } }
+      >
+        Finalizar receita
       </Button>
     </div>
   );

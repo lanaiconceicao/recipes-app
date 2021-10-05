@@ -13,7 +13,7 @@ const ADD_FAVORITE_RECIPES = 'add-favorite-recipes';
 const REMOVE_FAVORITE_RECIPES = 'remove-favorite-recipes';
 const FAVORITE_RECIPES_LOCAL_STORAGE = 'local-storage-recipes';
 const DONE_RECIPE = 'done-recipe';
-
+const USER_EMAIL = 'set-user-email';
 const Provider = ({ children }) => {
   const history = useHistory();
   const initialState = {
@@ -36,7 +36,7 @@ const Provider = ({ children }) => {
 
   const reducerRecipes = (state, { type, payload }) => {
     switch (type) {
-    case 'set-user-email':
+    case USER_EMAIL:
       return {
         ...state, user: { email: payload } };
     case 'recommendations':
@@ -73,6 +73,9 @@ const Provider = ({ children }) => {
     };
     const getFavorites = getLocalStorage('favoriteRecipes') || [];
     const getDoneRecipes = getLocalStorage('doneRecipes') || [];
+    const { email } = getLocalStorage('user') || { email: '' };
+
+    dispatch({ type: USER_EMAIL, payload: email });
 
     dispatch({ type: IN_PROGRESS_RECIPES, payload: InProgressRecipes });
     dispatch({ type: FAVORITE_RECIPES_LOCAL_STORAGE, payload: getFavorites });
@@ -87,7 +90,7 @@ const Provider = ({ children }) => {
     saveLocalStorage('mealsToken', 1);
     saveLocalStorage('cocktailsToken', 1);
     saveLocalStorage('user', { email });
-    dispatch({ type: 'set-user-email', payload: email });
+    dispatch({ type: USER_EMAIL, payload: email });
     history.push('/comidas');
   };
 
@@ -159,7 +162,7 @@ const Provider = ({ children }) => {
 
     const payload = verifyPath ? mealToSave : drinkToSave;
     dispatch({ type: IN_PROGRESS_RECIPES, payload });
-    saveLocalStorage('inProgressRecipes', payload);
+    // saveLocalStorage('inProgressRecipes', payload);
   };
 
   const handleFavorites = ({ recipe, verifyId }) => {
