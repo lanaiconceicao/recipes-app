@@ -73,10 +73,12 @@ const Provider = ({ children }) => {
     };
     const getFavorites = getLocalStorage('favoriteRecipes') || [];
     const getDoneRecipes = getLocalStorage('doneRecipes') || [];
-    const { email } = getLocalStorage('user');
+    const { email } = getLocalStorage('user') || { email: '' };
+
+    dispatch({ type: USER_EMAIL, payload: email });
+
     dispatch({ type: IN_PROGRESS_RECIPES, payload: InProgressRecipes });
     dispatch({ type: FAVORITE_RECIPES_LOCAL_STORAGE, payload: getFavorites });
-    dispatch({ type: USER_EMAIL, payload: email });
     dispatch({ type: 'done-recipe-local-storage', payload: getDoneRecipes });
     saveLocalStorage('inProgressRecipes', InProgressRecipes);
     saveLocalStorage('favoriteRecipes', getFavorites);
