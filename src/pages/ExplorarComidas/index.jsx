@@ -22,7 +22,7 @@ const ExplorarComidas = () => {
       );
     };
     getRandomRecipe();
-  }, [mealOrDrink, urlLocation]);
+  }, []);
 
   return (
     <>
