@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Footer, Header } from '../../components';
 import fetchAPI from '../../services/fetchAPI';
 import Context from '../../context/Context';
+import style from './ExplorarComidasIngredientes.module.css';
 
 const ExplorarComidasIngredientes = () => {
   const TWELVE = 12;
