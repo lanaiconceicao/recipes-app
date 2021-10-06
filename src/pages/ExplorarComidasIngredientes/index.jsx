@@ -23,21 +23,25 @@ const ExplorarComidasIngredientes = () => {
       <Header title="Explorar Ingredientes" displaySearchBtn={ false } />
 
       {ingredientsList && ingredientsList.slice(0, TWELVE)
-        .map((ingredient, i) => (
-          <article key={ i } data-testid={ `${i}-ingredient-card` }>
+        .map(({ strIngredient: ingredient }, i) => (
+          <article
+            className={ style.article }
+            key={ `${i}-${ingredient}` }
+            data-testid={ `${i}-ingredient-card` }
+          >
             <Link
               onClick={ () => handleSearch(
-                { query: ingredient.strIngredient, typeSearch: 'byIngredient', location },
+                { query: ingredient, typeSearch: 'byIngredient', location },
               ) }
               to="/comidas"
             >
               <img
-                alt={ `Foto do ingrediente ${ingredient.strIngredient}` }
+                alt={ `Foto do ingrediente ${ingredient}` }
                 data-testid={ `${i}-card-img` }
-                src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+                src={ `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png` }
               />
               <p data-testid={ `${i}-card-name` }>
-                {ingredient.strIngredient}
+                {ingredient}
               </p>
             </Link>
           </article>

@@ -9,7 +9,7 @@ import fetchByCategories from '../../services/fetchByCategories';
 
 const Bebidas = () => {
   const { appState:
-    { recipes }, handleSearch } = useContext(Context);
+    { recipes, search: { query, typeSearch } }, handleSearch } = useContext(Context);
   const [currentPage, setCurrentPage] = useState(0);
   const [categories, setCategories] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
@@ -30,7 +30,7 @@ const Bebidas = () => {
   };
 
   useEffect(() => {
-    const searchObj = { query: '', typeSearch: 'byName', location };
+    const searchObj = { query, typeSearch, location };
     const updateCategories = async () => {
       const categoriesBtn = await fetchCategories(getUrlLocation());
       setCategories(categoriesBtn);

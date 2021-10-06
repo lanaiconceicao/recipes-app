@@ -15,6 +15,7 @@ const REMOVE_FAVORITE_RECIPES = 'remove-favorite-recipes';
 const FAVORITE_RECIPES_LOCAL_STORAGE = 'local-storage-recipes';
 const DONE_RECIPE = 'done-recipe';
 const USER_EMAIL = 'set-user-email';
+const HANDLE_SEARCH = 'HANDLE_SEARCH';
 const Provider = ({ children }) => {
   const history = useHistory();
   const initialState = {
@@ -22,6 +23,10 @@ const Provider = ({ children }) => {
     cocktailsToken: '',
     user: {
       email: '',
+    },
+    search: {
+      query: '',
+      typeSearch: 'byName',
     },
     recipe: {},
     recipes: [],
@@ -40,6 +45,9 @@ const Provider = ({ children }) => {
     case USER_EMAIL:
       return {
         ...state, user: { email: payload } };
+    case HANDLE_SEARCH:
+      return { ...state,
+        search: { query: payload.query, typeSearch: payload.typeSearch } };
     case 'recommendations':
       return { ...state, recommendations: payload, isLoading: false };
     case ADD_RECIPES:
@@ -95,7 +103,7 @@ const Provider = ({ children }) => {
   };
 
   const handleSearch = async ({ query, typeSearch, location }) => {
-    // const searchObj = { query: '', typeSearch: 'byName', location };
+    await dispatch({ type: HANDLE_SEARCH, payload: { query, typeSearch } });
     const data = await fetchAPI(
       location.pathname.includes('comidas')
         ? verifySearchMeal[typeSearch]
@@ -183,17 +191,6 @@ const Provider = ({ children }) => {
       saveLocalStorage('favoriteRecipes', [...getFavorites, payload]);
     }
   };
-
-  /* const handleIngredientsList = async (ingredient, path) => {
-    const data = await fetchAPI(
-      path === 'comidas'
-        ? 'fetchMealByIngredient'
-        : 'fetchCocktailByIngredient',
-      ingredient,
-    );
-    dispatch({ type: ADD_RECIPES, payload: { data, comesFromIngredients: true } });
-  };
- */
 
   const handleProgressRecipe = ({ id, checkboxList, type }) => {
     const getRecipes = getLocalStorage('inProgressRecipes') || {
