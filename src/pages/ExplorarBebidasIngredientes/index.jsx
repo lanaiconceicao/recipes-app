@@ -25,7 +25,7 @@ const ExplorarBebidasIngredientes = () => {
     <>
       <Header title="Explorar Ingredientes" displaySearchBtn={ false } />
 
-      {ingredientsList && ingredientsList.slice(0, TWELVE)
+      {ingredientsList.slice(0, TWELVE)
         .map(({ strIngredient1: ingredient }, i) => (
           <article
             className={ style.article }
