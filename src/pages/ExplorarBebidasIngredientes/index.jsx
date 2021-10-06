@@ -19,6 +19,8 @@ const ExplorarBebidasIngredientes = () => {
     fetchIngredients();
   }, []);
 
+  if (!ingredientsList) return <div>Carregando</div>;
+
   return (
     <>
       <Header title="Explorar Ingredientes" displaySearchBtn={ false } />

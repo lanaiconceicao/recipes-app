@@ -19,11 +19,13 @@ const ExplorarComidasIngredientes = () => {
     fetchIngredients();
   }, []);
 
+  if (!ingredientsList) return <div>Carregando</div>;
+
   return (
     <>
       <Header title="Explorar Ingredientes" displaySearchBtn={ false } />
 
-      {ingredientsList && ingredientsList.slice(0, TWELVE)
+      {ingredientsList.slice(0, TWELVE)
         .map(({ strIngredient: ingredient }, i) => (
           <article
             className={ style.article }
