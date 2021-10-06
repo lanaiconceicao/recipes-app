@@ -17,6 +17,7 @@ import {
   Profile,
   ReceitasFavoritas,
   ReceitasFeitas,
+  NotFound,
 } from '../pages';
 
 const Routes = () => (
@@ -101,6 +102,7 @@ const Routes = () => (
       path="/perfil"
       component={ Profile }
     />
+    <Route component={ NotFound } />
   </Switch>
 );
 

@@ -3,12 +3,11 @@
   border: 0;
   border-radius: 25px;
   color: white;
-  height: 100%;
   padding: 10px;
   transition: all 2s ease;
 }
 
 .button:disabled {
-  background: grey;
-  color: black;
+  background: black;
+  color: white;
 }

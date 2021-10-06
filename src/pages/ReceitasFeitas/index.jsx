@@ -25,6 +25,7 @@ const ReceitasFeitas = () => {
               data-testid={ `${index}-horizontal-image` }
               src={ recipe.image }
               alt={ `receita ${index}` }
+              style={ { width: '50%' } }
             />
             <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
           </Link>
@@ -59,7 +60,6 @@ const ReceitasFeitas = () => {
         </div>
       ))
   );
-
   return (
     <>
       <Header title="Receitas Feitas" displaySearchBtn={ false } />

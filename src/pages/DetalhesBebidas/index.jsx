@@ -47,6 +47,7 @@ const DetalhesBebidas = () => {
         category={ `${recipe.strCategory} ${recipe.strAlcoholic}` }
         img={ recipe.strDrinkThumb }
         title={ recipe.strDrink }
+        url={ window.location.href }
       />
       <IngredientList
         isCheckbox={ false }
