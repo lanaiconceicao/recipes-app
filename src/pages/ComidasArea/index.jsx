@@ -41,6 +41,11 @@ const ComidasArea = () => {
     }
   }, [selectedArea]);
 
+  useEffect(() => {
+    fetchAreaUnfiltered()
+      .then((result) => setAreaMeals(result));
+  }, []);
+
   const handleChange = ({ target: { value } }) => {
     setSelectedArea(value);
   };
@@ -72,13 +77,13 @@ const ComidasArea = () => {
         />
       </>);
   };
+  if (!areaMeals) return <div>Carregando</div>;
 
   return (
     <>
       <Header title="Explorar Origem" displaySearchBtn />
       <Select onChange={ handleChange } />
-      {/* PARAMOS AQUI: Falta fazer a lógica do Card */}
-      { getCards(areaMeals || [])}
+      { getCards(areaMeals) }
       <Footer />
     </>
   );

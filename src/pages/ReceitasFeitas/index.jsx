@@ -60,6 +60,9 @@ const ReceitasFeitas = () => {
         </div>
       ))
   );
+
+  if (!doneRecipes) return <div>Carregando</div>;
+
   return (
     <>
       <Header title="Receitas Feitas" displaySearchBtn={ false } />

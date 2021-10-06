@@ -9,12 +9,14 @@ const Select = ({ onChange }) => {
     fetchArea().then((result) => setAreas(result));
   }, []);
 
+  if (!areas) return <div>Carregando</div>;
+
   return (
     <select data-testid="explore-by-area-dropdown" onChange={ onChange }>
       <option value="" data-testid="All-option">All</option>
       {areas
-        .map((area, index) => (
-          <option data-testid={ `${area}-option` } key={ index }>
+        .map((area) => (
+          <option data-testid={ `${area}-option` } key={ area }>
             {area}
           </option>))}
     </select>
@@ -22,7 +24,7 @@ const Select = ({ onChange }) => {
 };
 
 Select.propTypes = {
-  onChange: PropTypes.func,
-}.isRequired;
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Select;

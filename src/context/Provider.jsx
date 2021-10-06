@@ -10,10 +10,12 @@ import { favoriteDrink,
 
 const IN_PROGRESS_RECIPES = 'in-progress-recipes';
 const ADD_FAVORITE_RECIPES = 'add-favorite-recipes';
+const ADD_RECIPES = 'add-recipes';
 const REMOVE_FAVORITE_RECIPES = 'remove-favorite-recipes';
 const FAVORITE_RECIPES_LOCAL_STORAGE = 'local-storage-recipes';
 const DONE_RECIPE = 'done-recipe';
 const USER_EMAIL = 'set-user-email';
+const HANDLE_SEARCH = 'HANDLE_SEARCH';
 const Provider = ({ children }) => {
   const history = useHistory();
   const initialState = {
@@ -21,6 +23,10 @@ const Provider = ({ children }) => {
     cocktailsToken: '',
     user: {
       email: '',
+    },
+    search: {
+      query: '',
+      typeSearch: 'byName',
     },
     recipe: {},
     recipes: [],
@@ -39,9 +45,12 @@ const Provider = ({ children }) => {
     case USER_EMAIL:
       return {
         ...state, user: { email: payload } };
+    case HANDLE_SEARCH:
+      return { ...state,
+        search: { query: payload.query, typeSearch: payload.typeSearch } };
     case 'recommendations':
       return { ...state, recommendations: payload, isLoading: false };
-    case 'add-recipes':
+    case ADD_RECIPES:
       return { ...state, recipes: payload };
     case 'recipe-detail':
       return { ...state, recipe: payload };
@@ -76,7 +85,6 @@ const Provider = ({ children }) => {
     const { email } = getLocalStorage('user') || { email: '' };
 
     dispatch({ type: USER_EMAIL, payload: email });
-
     dispatch({ type: IN_PROGRESS_RECIPES, payload: InProgressRecipes });
     dispatch({ type: FAVORITE_RECIPES_LOCAL_STORAGE, payload: getFavorites });
     dispatch({ type: 'done-recipe-local-storage', payload: getDoneRecipes });
@@ -95,6 +103,7 @@ const Provider = ({ children }) => {
   };
 
   const handleSearch = async ({ query, typeSearch, location }) => {
+    await dispatch({ type: HANDLE_SEARCH, payload: { query, typeSearch } });
     const data = await fetchAPI(
       location.pathname.includes('comidas')
         ? verifySearchMeal[typeSearch]
@@ -102,7 +111,7 @@ const Provider = ({ children }) => {
       query,
     );
 
-    dispatch({ type: 'add-recipes', payload: data });
+    dispatch({ type: ADD_RECIPES, payload: data });
 
     if (data.length === 0) {
       global
