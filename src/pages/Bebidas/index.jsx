@@ -58,16 +58,27 @@ const Bebidas = () => {
     }
   };
 
-  const renderCategories = (categoriesBtn) => categoriesBtn.map((category, i) => (
-    <Button
-      name={ category }
-      key={ i }
-      dataTestId={ `${category}-category-filter` }
-      onClick={ ({ target: { name } }) => filterByCategory(name) }
-    >
-      {category}
-    </Button>
-  ));
+  const renderCategories = (categoriesBtn) => (
+    <section className={ style.categories }>
+      {categoriesBtn.map((category, i) => (
+        <Button
+          name={ category }
+          key={ i }
+          dataTestId={ `${category}-category-filter` }
+          onClick={ ({ target: { name } }) => filterByCategory(name) }
+        >
+          {category}
+        </Button>
+      ))}
+      <Button
+        // onClick={ () => filterByCategory('') }
+        dataTestId="All-category-filter"
+        onClick={ () => updateRecipes(recipes) }
+      >
+        All
+      </Button>
+    </section>
+  );
 
   const renderRecipes = (recipesArr) => {
     const PER_PAGE = 12;
@@ -101,19 +112,12 @@ const Bebidas = () => {
   if (!recipes || !filteredRecipes) return <div>Carregando</div>;
 
   return (
-    <main className={ style.main }>
+    <section className={ style.section }>
       <Header title="Bebidas" displaySearchBtn />
       {categories && renderCategories(categories)}
-      <Button
-        // onClick={ () => filterByCategory('') }
-        dataTestId="All-category-filter"
-        onClick={ () => updateRecipes(recipes) }
-      >
-        All
-      </Button>
       {filteredRecipes && renderRecipes(filteredRecipes)}
       <Footer />
-    </main>
+    </section>
   );
 };
 

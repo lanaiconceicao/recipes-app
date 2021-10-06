@@ -1,4 +1,6 @@
 .main {
+  background: #efefef;
   height: 100vh;
+  overflow: hidden;
   width: 100vw;
 }

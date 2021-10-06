@@ -1,13 +1,16 @@
 .button {
-  background: grey;
+  background: var(--primary-dark-color);
   border: 0;
   border-radius: 25px;
+  box-shadow: var(--shadow25);
   color: white;
+  cursor: pointer;
   padding: 10px;
-  transition: all 2s ease;
+  transition: background 3s ease;
 }
 
 .button:disabled {
-  background: black;
-  color: white;
+  background: grey;
+  color: black;
+  cursor: not-allowed;
 }

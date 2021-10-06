@@ -3,6 +3,7 @@ import { validateEmail, validatePassword } from './helpers';
 import Context from '../../context/Context';
 import { Button, Input } from '../../components';
 import style from './Login.module.css';
+import logo from '../../images/santa-claus.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -23,18 +24,24 @@ const Login = () => {
 
   return (
     <section className={ style.section }>
+      <h1 className={ style.logo }>
+        <img src={ logo } alt="Logo do site" />
+        <span>App de Receitas</span>
+      </h1>
       <form className={ style.form } onSubmit={ (e) => handleSubmitLogin(e, email) }>
         <Input
           onChange={ handleChange }
           name="email"
-          label="Insira o seu email"
+          placeholder="Insira o seu email"
+          label="E-mail"
           value={ email }
           dataTestId="email-input"
         />
         <Input
           onChange={ handleChange }
           name="password"
-          label="Insira sua senha"
+          label="Senha"
+          placeholder="Insira a sua senha"
           value={ password }
           type="password"
           dataTestId="password-input"

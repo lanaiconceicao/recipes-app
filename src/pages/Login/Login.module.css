@@ -1,12 +1,78 @@
 .form {
   display: grid;
   grid: 1fr 1.5fr 1fr / 1fr;
+  padding: 30px 0;
+  width: 90%;
+}
+
+.form > label {
+  animation: intro 2s linear;
+}
+
+.logo {
+  animation: opacity 3s linear;
+  display: grid;
+  place-items: center;
+}
+
+.logo > img {
+  height: auto;
   width: 50%;
 }
 
+.logo > span {
+  background: var(--primary-light-color);
+  border-radius: 5px;
+  color: white;
+  font-size: 2rem;
+  padding: 2px;
+}
+
 .section {
+  background: var(--secondary-color);
   display: grid;
+  grid: 1fr 1fr / 1fr;
   height: 100%;
   place-items: center;
   width: 100%;
+}
+
+.form > button {
+  animation: intro 2s ease;
+}
+
+@media screen and ( min-width : 768px ) {
+
+  .form {
+    width: 60%;
+  }
+
+  .section {
+    grid: 1fr / 1fr 1fr;
+  }
+}
+
+@keyframes opacity {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro {
+
+  from {
+    opacity: 0;
+    transform: translateX(10%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
 }

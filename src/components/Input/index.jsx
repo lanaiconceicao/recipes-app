@@ -6,6 +6,7 @@ const Input = ({
   dataTestId,
   onChange,
   label,
+  placeholder,
   name,
   type,
   value,
@@ -18,7 +19,7 @@ const Input = ({
       id={ name }
       name={ name }
       onChange={ onChange }
-      placeholder={ label }
+      placeholder={ placeholder }
       type={ type }
       value={ value }
     />
@@ -31,6 +32,7 @@ Input.defaultProps = {
   name: '',
   onChange: null,
   type: 'text',
+  placeholder: '',
 };
 
 const { func, string } = PropTypes;
@@ -40,6 +42,7 @@ Input.propTypes = {
   label: string.isRequired,
   name: string,
   onChange: func,
+  placeholder: string,
   type: string,
   value: string.isRequired,
 };

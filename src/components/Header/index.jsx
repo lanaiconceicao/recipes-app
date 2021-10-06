@@ -6,6 +6,7 @@ import searchIcon from '../../images/searchIcon.svg';
 import Input from '../Input';
 import Button from '../Button';
 import Context from '../../context/Context';
+import style from './Header.module.css';
 
 const Header = (props) => {
   const { title, displaySearchBtn } = props;
@@ -74,7 +75,7 @@ const Header = (props) => {
   // VOLTAR DAQUI
 
   return (
-    <>
+    <header className={ style.header }>
       <Button onClick={ redirectToProfile }>
         <img
           data-testid="profile-top-btn"
@@ -85,7 +86,7 @@ const Header = (props) => {
       <h1 data-testid="page-title">{title}</h1>
       {displaySearchBtn && searchBarButton()}
       {showSearchBar && searchBar()}
-    </>
+    </header>
   );
 };
 

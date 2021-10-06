@@ -1,4 +1,16 @@
-.main {
+.section {
   min-height: 100%;
   width: 100%;
+}
+
+.categories {
+  display: grid;
+  gap: 5px;
+  grid: repeat(2, 1fr) / repeat(3, 1fr);
+}
+
+.recipes {
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
 }
