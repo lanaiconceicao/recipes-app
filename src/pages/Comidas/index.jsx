@@ -98,6 +98,7 @@ const Comidas = () => {
       </>
     );
   };
+  if (!recipes || !filteredRecipes) return <div>Carregando</div>;
 
   return (
     <main className={ style.main }>

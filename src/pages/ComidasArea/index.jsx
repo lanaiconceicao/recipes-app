@@ -49,7 +49,6 @@ const ComidasArea = () => {
   const handleChange = ({ target: { value } }) => {
     setSelectedArea(value);
   };
-  if (!areaMeals) return <div>Carregando</div>;
 
   const getCards = (meals) => {
     const PER_PAGE = 12;
@@ -78,6 +77,7 @@ const ComidasArea = () => {
         />
       </>);
   };
+  if (!areaMeals) return <div>Carregando</div>;
 
   return (
     <>

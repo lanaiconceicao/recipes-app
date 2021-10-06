@@ -98,6 +98,8 @@ const Bebidas = () => {
     );
   };
 
+  if (!recipes || !filteredRecipes) return <div>Carregando</div>;
+
   return (
     <main className={ style.main }>
       <Header title="Bebidas" displaySearchBtn />

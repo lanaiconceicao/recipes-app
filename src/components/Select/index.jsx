@@ -9,6 +9,8 @@ const Select = ({ onChange }) => {
     fetchArea().then((result) => setAreas(result));
   }, []);
 
+  if (!areas) return <div>Carregando</div>;
+
   return (
     <select data-testid="explore-by-area-dropdown" onChange={ onChange }>
       <option value="" data-testid="All-option">All</option>

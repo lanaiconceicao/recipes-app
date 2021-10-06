@@ -14,19 +14,15 @@ const ExplorarBebidas = () => {
 
   const [randomUrl, setRandomUrl] = useState('');
 
-  const getRandomRecipe = async () => {
-    const randomRecipe = await fetchRandomRecipe(mealOrDrink);
-    setRandomUrl(
-      `/${urlLocation}/${randomRecipe[0].idMeal || randomRecipe[0].idDrink}`,
-    );
-  };
   useEffect(() => {
+    const getRandomRecipe = async () => {
+      const randomRecipe = await fetchRandomRecipe(mealOrDrink);
+      setRandomUrl(
+        `/${urlLocation}/${randomRecipe[0].idMeal || randomRecipe[0].idDrink}`,
+      );
+    };
     getRandomRecipe();
   }, []);
-
-  useEffect(() => {
-    getRandomRecipe();
-  }, [mealOrDrink, urlLocation]);
 
   return (
     <>

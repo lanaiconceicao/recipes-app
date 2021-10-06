@@ -53,6 +53,8 @@ const ReceitasFavoritas = () => {
       ))
   );
 
+  if (!favoriteRecipes) return <div>Carregando</div>;
+
   return (
     <>
       <Header title="Receitas Favoritas" displaySearchBtn={ false } />
