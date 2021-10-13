@@ -1,14 +1,21 @@
 * {
   margin: 0;
   padding: 0;
+  outline: 0;
   box-sizing: border-box;
 }
 
 :root {
-  --primary-color: #941910;
+/*   --primary-color: #941910;
   --primary-light-color: #FF6E63;
   --primary-dark-color: #E03D30;
   --secondary-color: #01943E; 
   --secondary-light-color: #2FE078; 
+  --shadow25: 0 2px 2px rgba(0, 0, 0, 0.65); */
+  --primary-color: #E09616;
+  --primary-light-color: #FFB433;
+  --primary-dark-color: #946007;
+  --secondary-color: #004894; 
+  --secondary-light-color: #1678E0; 
   --shadow25: 0 2px 2px rgba(0, 0, 0, 0.65);
 }

@@ -71,7 +71,6 @@ const Bebidas = () => {
         </Button>
       ))}
       <Button
-        // onClick={ () => filterByCategory('') }
         dataTestId="All-category-filter"
         onClick={ () => updateRecipes(recipes) }
       >
@@ -85,12 +84,12 @@ const Bebidas = () => {
     const offset = currentPage * PER_PAGE;
     const pageCount = Math.ceil(recipesArr.length / PER_PAGE);
     return (
-      <>
+      <section className={ style.recipes }>
         {recipesArr
           .slice(offset, offset + PER_PAGE)
           .map((recipe, i) => (
             <Card
-              key={ i }
+              key={ recipe.idDrink }
               index={ i }
               name={ recipe.strDrink }
               img={ recipe.strDrinkThumb }
@@ -99,13 +98,14 @@ const Bebidas = () => {
             />
           ))}
         <ReactPaginate
+          containerClassName={ style.pages }
           previousLabel="Anterior"
           nextLabel="Proxima"
           breakLabel="..."
           pageCount={ pageCount }
           onPageChange={ handlePageClick }
         />
-      </>
+      </section>
     );
   };
 

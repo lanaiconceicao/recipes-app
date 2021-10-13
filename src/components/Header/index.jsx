@@ -33,14 +33,21 @@ const Header = (props) => {
   );
 
   const searchBar = () => (
-    <section>
+    <section className={ style.searchBar }>
+      <div
+        className={ style.background }
+        onClickCapture={ () => setShowSearchBar(!showSearchBar) }
+      />
       <Input
         dataTestId="search-input"
         name="search"
         onChange={ ({ target: { value } }) => setBySearch(value) }
         value={ search }
       />
-      <section onChange={ ({ target: { value } }) => setBySearchQuery(value) }>
+      <section
+        className={ style.options }
+        onChange={ ({ target: { value } }) => setBySearchQuery(value) }
+      >
         <Input
           value="byIngredient"
           name="searchQuery"

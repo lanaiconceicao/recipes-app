@@ -4,6 +4,8 @@
   color: white;
   display: flex;
   justify-content: space-around;
+  padding: 5px;
+  position: relative;
   width: 100%;
 }
 
@@ -13,4 +15,93 @@
 
 .header img {
   filter: invert(1);
+}
+
+.searchBar {
+  animation: fadeFromTop 1.5s ease;
+  background: #363636;
+  display: grid;
+  grid: repeat(3, 1fr) / 1fr;
+  padding: 25px;
+  place-items: center;
+  position: absolute;
+  top: 20vh;
+  width: 80%;
+  z-index: 20;
+}
+
+.searchBar > label {
+  justify-content: center;
+}
+
+.searchBar > button {
+  height: 100%;
+  width: 100%;
+}
+
+.options > label {
+  align-items: center;
+  display: grid;
+  flex-direction: row;
+  grid: 1fr / 1fr 5fr;
+  text-align: left;
+}
+
+.options > label > input {
+  box-shadow: none;
+  order: -1;
+}
+
+.background {
+  animation: fade 1.5s ease;
+  animation-delay: 1.1s;
+  background: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  margin: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: all 2s ease;
+  width: 100%;
+  z-index: -1;
+}
+
+.options {
+  display: grid;
+}
+
+@media screen and ( min-width : 768px ) {
+
+  .searchBar {
+    grid: 1fr / repeat(3, 1fr);
+
+  }
+}
+
+@keyframes fadeFromTop {
+
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes fade {
+
+  from {
+    height: 0%;
+    width: 0%;
+  }
+
+  to {
+    height: 100%;
+    width: 100%;
+  }
 }

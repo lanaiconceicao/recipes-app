@@ -1,6 +1,7 @@
 .main {
   background: #efefef;
   height: 100vh;
-  overflow: hidden;
+  max-width: 100%;
+  min-height: 100vh;
   width: 100vw;
 }

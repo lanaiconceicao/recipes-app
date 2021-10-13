@@ -91,7 +91,7 @@ const Comidas = () => {
           .slice(offset, offset + PER_PAGE)
           .map((recipe, i) => (
             <Card
-              key={ i }
+              key={ recipe.idMeal }
               index={ i }
               name={ recipe.strMeal }
               img={ recipe.strMealThumb }
@@ -100,6 +100,7 @@ const Comidas = () => {
             />
           ))}
         <ReactPaginate
+          containerClassName={ style.pages }
           previousLabel="Anterior"
           nextLabel="Proxima"
           breakLabel="..."

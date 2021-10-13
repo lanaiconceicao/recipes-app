@@ -3,32 +3,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import style from './Card.module.css';
 
-// const Card = ({ index, img, name }) => (
-//   <article className={ style.article } data-testid={ `${index}-recipe-card` }>
-//     <img
-//       className={ style.recipePhoto }
-//       data-testid={ `${index}-card-img` }
-//       src={ img }
-//       alt={ `Foto referente a receita de ${name}` }
-//     />
-//     <p data-testid={ `${index}-card-name` }>
-//       {name}
-//     </p>
-//   </article>
-// );
-
 const Card = ({ index, img, name, mealOrDrink, id }) => (
-  <Link to={ `/${mealOrDrink}/${id}` }>
+  <Link className={ style.card } to={ `/${mealOrDrink}/${id}` }>
     <article className={ style.article } data-testid={ `${index}-recipe-card` }>
+      <h3 data-testid={ `${index}-card-name` }>
+        {name}
+      </h3>
       <img
         className={ style.recipePhoto }
         data-testid={ `${index}-card-img` }
         src={ img }
         alt={ `Foto referente a receita de ${name}` }
       />
-      <p data-testid={ `${index}-card-name` }>
-        {name}
-      </p>
+
     </article>
   </Link>
 );
