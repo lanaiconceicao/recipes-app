@@ -1,0 +1,27 @@
+.footer {
+  background-color: var(--secondary-color);
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+}
+
+.footer img {
+  filter: invert(1);
+}
+
+.drink-icon {
+  display: flex;
+  width: 40px;
+}
+
+.explore-icon {
+  display: flex;
+  width: 40px;
+}
+
+.food-icon {
+  display: flex;
+  width: 40px;
+}

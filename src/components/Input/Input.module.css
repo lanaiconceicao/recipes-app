@@ -1,0 +1,21 @@
+.label {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  height: 100%;
+  text-align: center;
+  width: 100%;
+}
+
+.input {
+  border: 5px var(--p) double;
+  border-radius: 25px;
+  box-shadow: var(--shadow25);
+  padding: 10px;
+  width: 100%;
+}
+
+.input::placeholder {
+  text-align: center;
+}
